@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FileText, Download, TrendingUp, Users, DollarSign, Percent } from "lucide-react";
+import { FileText, Download, TrendingUp, TrendingDown, Users, DollarSign, Percent } from "lucide-react";
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const revenueData = [
@@ -32,27 +32,65 @@ const departmentPerformance = [
   { dept: "Concierge", score: 93 },
 ];
 
+const AreaTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 shadow-xl">
+        <p className="text-slate-400 text-xs mb-1">{label}</p>
+        <p className="text-white font-semibold text-lg">${payload[0].value.toLocaleString()}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+const LineTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 shadow-xl">
+        <p className="text-slate-400 text-xs mb-1">{label}</p>
+        <p className="text-white font-semibold text-lg">{payload[0].value}%</p>
+        <p className="text-slate-400 text-xs">Occupancy Rate</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+const BarTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 shadow-xl">
+        <p className="text-slate-400 text-xs mb-2">{label}</p>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-indigo-500" />
+          <span className="text-slate-300 text-xs">Score:</span>
+          <span className="text-white font-semibold">{payload[0].value}</span>
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function ManagerReportsPage() {
   return (
-    <div className="p-6 lg:p-8 space-y-6">
-      {/* Header */}
+    <div className="p-6 lg:p-8 space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Operational Reports</h1>
-          <p className="text-neutral-500 text-sm mt-0.5">Daily performance metrics and analytics</p>
+          <h1 className="text-2xl font-bold text-slate-950 tracking-tight">Operational Reports</h1>
+          <p className="text-slate-500 text-sm mt-1">Daily performance metrics and analytics</p>
         </div>
         <motion.button
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-xl text-sm shadow-md"
-          style={{ fontWeight: 600 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="flex items-center gap-2.5 bg-slate-950 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg shadow-slate-950/20 hover:bg-slate-800 transition-colors"
         >
           <Download className="w-4 h-4" /> Export Report
         </motion.button>
       </div>
 
-      {/* Key Metrics */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
         {[
           { icon: DollarSign, label: "Today's Revenue", value: "$11,200", change: "+8.2%", positive: true, color: "#10B981" },
           { icon: Percent, label: "Occupancy Rate", value: "87%", change: "+4% vs yesterday", positive: true, color: "#3B82F6" },
@@ -63,72 +101,108 @@ export default function ManagerReportsPage() {
             key={i}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className="bg-white/70 backdrop-blur rounded-xl p-5 border border-black/10 shadow-sm"
+            transition={{ delay: i * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="relative bg-white rounded-2xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md hover:border-slate-300/80 transition-all duration-300 group overflow-hidden"
           >
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: metric.color + "15" }}>
-              <metric.icon className="w-5 h-5" style={{ color: metric.color }} />
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ backgroundColor: metric.color + '15' }}>
+                <metric.icon className="w-5 h-5" style={{ color: metric.color }} />
+              </div>
+              <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
+                metric.positive 
+                  ? "bg-emerald-50 text-emerald-700 border border-emerald-200/60" 
+                  : "bg-amber-50 text-amber-700 border border-amber-200/60"
+              }`}>
+                {metric.positive ? (
+                  <TrendingUp className="w-3 h-3" />
+                ) : (
+                  <TrendingDown className="w-3 h-3" />
+                )}
+                {metric.change}
+              </div>
             </div>
-            <div className="text-black" style={{ fontSize: "1.6rem", fontWeight: 800 }}>{metric.value}</div>
-            <div className="text-neutral-500 text-sm mt-0.5">{metric.label}</div>
-            <div className={`text-xs mt-2 ${metric.positive ? "text-black" : "text-black"}`}>{metric.change}</div>
+            <div className="text-2xl font-bold text-slate-950 tracking-tight">{metric.value}</div>
+            <div className="text-slate-500 text-sm mt-1">{metric.label}</div>
+            <div 
+              className="absolute bottom-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ background: `linear-gradient(90deg, ${metric.color}, ${metric.color}80)` }}
+            />
           </motion.div>
         ))}
       </div>
 
-      {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {/* Revenue Trend */}
-        <div className="bg-white/70 backdrop-blur rounded-xl p-6 border border-black/10 shadow-sm">
-          <h3 className="text-black mb-5" style={{ fontWeight: 700 }}>Weekly Revenue Trend</h3>
-          <ResponsiveContainer width="100%" height={220}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm">
+          <div className="mb-5">
+            <h3 className="font-bold text-slate-950 text-lg">Weekly Revenue Trend</h3>
+            <p className="text-slate-500 text-sm mt-0.5">Daily revenue breakdown</p>
+          </div>
+          <ResponsiveContainer width="100%" height={240}>
             <AreaChart data={revenueData}>
               <defs>
-                <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+                <linearGradient id="colorRevenueMg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.15}/>
+                  <stop offset="100%" stopColor="#3B82F6" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
-              <XAxis dataKey="day" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0" }} />
-              <Area type="monotone" dataKey="revenue" stroke="#3B82F6" strokeWidth={2} fill="url(#colorRevenue)" />
+              <CartesianGrid strokeDasharray="0" vertical={false} stroke="#E2E8F0" />
+              <XAxis dataKey="day" tick={{ fontSize: 12, fill: '#94A3B8', fontWeight: 500 }} axisLine={false} tickLine={false} dy={12} />
+              <YAxis tick={{ fontSize: 12, fill: '#94A3B8', fontWeight: 500 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v/1000}k`} width={55} />
+              <Tooltip content={<AreaTooltip />} cursor={{ stroke: '#94A3B8', strokeWidth: 1, strokeDasharray: '4 4' }} />
+              <Area 
+                type="monotone" 
+                dataKey="revenue" 
+                stroke="#3B82F6" 
+                strokeWidth={2.5} 
+                fill="url(#colorRevenueMg)"
+                dot={{ fill: '#3B82F6', strokeWidth: 0, r: 4 }}
+                activeDot={{ fill: '#3B82F6', r: 6, stroke: '#fff', strokeWidth: 2 }}
+              />
             </AreaChart>
           </ResponsiveContainer>
         </div>
 
-        {/* Occupancy Rate */}
-        <div className="bg-white/70 backdrop-blur rounded-xl p-6 border border-black/10 shadow-sm">
-          <h3 className="text-black mb-5" style={{ fontWeight: 700 }}>Occupancy Rate (%)</h3>
-          <ResponsiveContainer width="100%" height={220}>
+        <div className="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm">
+          <div className="mb-5">
+            <h3 className="font-bold text-slate-950 text-lg">Occupancy Rate</h3>
+            <p className="text-slate-500 text-sm mt-0.5">Daily occupancy percentage</p>
+          </div>
+          <ResponsiveContainer width="100%" height={240}>
             <LineChart data={occupancyData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
-              <XAxis dataKey="day" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0" }} />
-              <Line type="monotone" dataKey="occupancy" stroke="#10B981" strokeWidth={3} dot={{ fill: "#10B981", r: 4 }} />
+              <CartesianGrid strokeDasharray="0" vertical={false} stroke="#E2E8F0" />
+              <XAxis dataKey="day" tick={{ fontSize: 12, fill: '#94A3B8', fontWeight: 500 }} axisLine={false} tickLine={false} dy={12} />
+              <YAxis tick={{ fontSize: 12, fill: '#94A3B8', fontWeight: 500 }} axisLine={false} tickLine={false} domain={[60, 100]} tickFormatter={v => `${v}%`} width={50} />
+              <Tooltip content={<LineTooltip />} cursor={{ stroke: '#94A3B8', strokeWidth: 1, strokeDasharray: '4 4' }} />
+              <Line 
+                type="monotone" 
+                dataKey="occupancy" 
+                stroke="#10B981" 
+                strokeWidth={2.5} 
+                dot={{ fill: '#10B981', strokeWidth: 0, r: 4 }}
+                activeDot={{ fill: '#10B981', r: 6, stroke: '#fff', strokeWidth: 2 }}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      {/* Department Performance */}
-      <div className="bg-white/70 backdrop-blur rounded-xl p-6 border border-black/10 shadow-sm">
-        <h3 className="text-black mb-5" style={{ fontWeight: 700 }}>Department Performance Scores</h3>
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart data={departmentPerformance} layout="vertical">
-            <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
-            <XAxis type="number" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-            <YAxis dataKey="dept" type="category" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} width={100} />
-            <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E2E8F0" }} />
-            <Bar dataKey="score" fill="#6366F1" radius={[0, 6, 6, 0]} />
+      <div className="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm">
+        <div className="mb-5">
+          <h3 className="font-bold text-slate-950 text-lg">Department Performance Scores</h3>
+          <p className="text-slate-500 text-sm mt-0.5">Performance metrics by department</p>
+        </div>
+        <ResponsiveContainer width="100%" height={280}>
+          <BarChart data={departmentPerformance} layout="vertical" barGap={8}>
+            <CartesianGrid strokeDasharray="0" horizontal={true} vertical={false} stroke="#E2E8F0" />
+            <XAxis type="number" tick={{ fontSize: 12, fill: '#94A3B8', fontWeight: 500 }} axisLine={false} tickLine={false} domain={[0, 100]} />
+            <YAxis dataKey="dept" type="category" tick={{ fontSize: 12, fill: '#64748B', fontWeight: 500 }} axisLine={false} tickLine={false} width={100} />
+            <Tooltip content={<BarTooltip />} cursor={{ fill: '#F8FAFC' }} />
+            <Bar dataKey="score" fill="#6366F1" radius={[6, 6, 0, 0]} barSize={28} />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Quick Reports */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {[
           { title: "Daily Operations Summary", desc: "Complete breakdown of today's activities", icon: FileText, color: "#3B82F6" },
           { title: "Staff Performance Report", desc: "Individual and team metrics", icon: Users, color: "#6366F1" },
@@ -138,16 +212,21 @@ export default function ManagerReportsPage() {
             key={i}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 + i * 0.05 }}
-            whileHover={{ y: -4 }}
-            className="bg-white border border-black/10 rounded-xl p-5 text-left hover:border-black/20 transition-all group"
+            transition={{ delay: 0.15 + i * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="bg-white border border-slate-200/60 rounded-2xl p-5 text-left hover:border-slate-300/80 hover:shadow-md transition-all duration-300 group"
           >
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ backgroundColor: report.color + "15" }}>
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: report.color + '15' }}>
               <report.icon className="w-5 h-5" style={{ color: report.color }} />
             </div>
-            <h4 className="text-black mb-1 text-sm" style={{ fontWeight: 700 }}>{report.title}</h4>
-            <p className="text-neutral-500 text-xs mb-3">{report.desc}</p>
-            <span className="text-black text-xs group-hover:underline" style={{ fontWeight: 600 }}>Generate Report →</span>
+            <h4 className="text-slate-950 font-semibold mb-1.5">{report.title}</h4>
+            <p className="text-slate-500 text-sm mb-4">{report.desc}</p>
+            <span className="text-slate-700 text-sm font-medium group-hover:text-slate-950 transition-colors flex items-center gap-1">
+              Generate Report 
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </span>
           </motion.button>
         ))}
       </div>

@@ -1,15 +1,15 @@
 "use client";
 
-import { motion } from "motion/react";
-import { Building2, Users, TrendingUp, ClipboardList, ArrowUpRight, CheckCircle2, AlertCircle, Clock } from "lucide-react";
+import { motion } from "framer-motion";
+import { Building2, Users, TrendingUp, ClipboardList, ArrowUpRight, CheckCircle2, AlertCircle, Clock, TrendingDown } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import Link from "next/link";
 
 const stats = [
-  { icon: Building2, label: "Total Properties", value: "3", change: "+1 this month", positive: true, color: "#3B82F6" },
-  { icon: Users, label: "Total Staff", value: "47", change: "+3 this week", positive: true, color: "#6366F1" },
-  { icon: TrendingUp, label: "Daily Revenue", value: "$16,580", change: "+12.4% vs yesterday", positive: true, color: "#10B981" },
-  { icon: ClipboardList, label: "Pending Tasks", value: "8", change: "2 overdue", positive: false, color: "#F59E0B" },
+  { icon: Building2, label: "Total Properties", value: "3", change: "+1 this month", positive: true, color: "#3B82F6", trend: "up" },
+  { icon: Users, label: "Total Staff", value: "47", change: "+3 this week", positive: true, color: "#6366F1", trend: "up" },
+  { icon: TrendingUp, label: "Daily Revenue", value: "$16,580", change: "+12.4% vs yesterday", positive: true, color: "#10B981", trend: "up" },
+  { icon: ClipboardList, label: "Pending Tasks", value: "8", change: "2 overdue", positive: false, color: "#F59E0B", trend: "down" },
 ];
 
 const revenueData = [
@@ -22,56 +22,86 @@ const revenueData = [
   { day: "Sun", revenue: 16580 },
 ];
 
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-[#0f172a] border border-slate-700/50 rounded-xl px-4 py-3 shadow-xl">
+        <p className="text-slate-400 text-xs mb-1">{label}</p>
+        <p className="text-white font-semibold text-lg">
+          ${payload[0].value.toLocaleString()}
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function OwnerDashboard() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-           <h2 className="text-2xl font-bold text-black tracking-tight">Welcome back, Owner</h2>
-           <p className="text-neutral-500 text-sm">Here's your operations snapshot for today.</p>
+           <h2 className="text-2xl font-bold text-slate-950 tracking-tight">Welcome back, Owner</h2>
+           <p className="text-slate-500 text-sm mt-1">Here's your operations snapshot for today.</p>
         </div>
         <div className="flex gap-3">
-          <button className="px-4 py-2 text-sm font-medium text-black bg-white/70 backdrop-blur border border-black/10 rounded-lg hover:bg-white transition-colors">
+          <button className="px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all duration-200 shadow-sm">
             Download Report
           </button>
-          <button className="px-4 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-neutral-800 transition-shadow shadow-md shadow-black/10">
+          <button className="px-4 py-2.5 text-sm font-medium text-white bg-slate-950 rounded-xl hover:bg-slate-800 transition-all duration-200 shadow-lg shadow-slate-950/20">
             Add Property
           </button>
         </div>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {stats.map((stat, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="p-6 bg-white/70 backdrop-blur rounded-xl border border-black/10 shadow-sm hover:shadow-md transition-shadow"
+            transition={{ delay: i * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="relative bg-white rounded-2xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md hover:border-slate-300/80 transition-all duration-300 group"
           >
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white/80 border border-black/10">
-                <stat.icon className="w-5 h-5 text-black" />
+            <div className="flex items-start justify-between mb-4">
+              <div 
+                className="w-11 h-11 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
+                style={{ backgroundColor: `${stat.color}15` }}
+              >
+                <stat.icon className="w-5 h-5" style={{ color: stat.color }} />
               </div>
-              <span className={`text-xs font-medium px-2 py-1 rounded-full ${stat.positive ? "bg-black/5 text-black" : "bg-black/5 text-neutral-600"}`}>
+              <div className={`flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full ${
+                stat.positive 
+                  ? "bg-emerald-50 text-emerald-700 border border-emerald-200/60" 
+                  : "bg-amber-50 text-amber-700 border border-amber-200/60"
+              }`}>
+                {stat.trend === "up" ? (
+                  <TrendingUp className="w-3 h-3" />
+                ) : (
+                  <TrendingDown className="w-3 h-3" />
+                )}
                 {stat.change}
-              </span>
+              </div>
             </div>
-            <p className="text-sm font-medium text-neutral-500">{stat.label}</p>
-            <p className="text-2xl font-bold text-black mt-1">{stat.value}</p>
+            <p className="text-sm font-medium text-slate-500 mb-1">{stat.label}</p>
+            <p className="text-3xl font-bold text-slate-950 tracking-tight">{stat.value}</p>
+            <div 
+              className="absolute bottom-0 left-0 right-0 h-1 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ background: `linear-gradient(90deg, ${stat.color}, ${stat.color}80)` }}
+            />
           </motion.div>
         ))}
       </div>
 
-      {/* Charts and Lists */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {/* Revenue Chart */}
-        <div className="col-span-1 lg:col-span-2 bg-white/70 backdrop-blur rounded-xl border border-black/10 shadow-sm p-6">
+         
+        <div className="col-span-1 lg:col-span-2 bg-white rounded-2xl border border-slate-200/60 shadow-sm p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="font-bold text-black">Revenue Trend</h3>
-            <select className="text-xs border border-black/10 rounded-md px-2 py-1 text-neutral-500 focus:outline-none bg-white/50">
+            <div>
+              <h3 className="font-bold text-slate-950 text-lg">Revenue Trend</h3>
+              <p className="text-slate-500 text-sm mt-0.5">Daily revenue for the past week</p>
+            </div>
+            <select className="text-sm border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-950/10 focus:border-slate-300 bg-slate-50/50 hover:bg-slate-50 transition-colors cursor-pointer">
               <option>Last 7 Days</option>
               <option>Last 30 Days</option>
             </select>
@@ -81,67 +111,69 @@ export default function OwnerDashboard() {
               <AreaChart data={revenueData}>
                 <defs>
                    <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                     <stop offset="5%" stopColor="#000000" stopOpacity={0.08}/>
-                     <stop offset="95%" stopColor="#000000" stopOpacity={0}/>
+                     <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.15}/>
+                     <stop offset="100%" stopColor="#3B82F6" stopOpacity={0}/>
                    </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e5e5" />
+                <CartesianGrid strokeDasharray="0" vertical={false} stroke="#E2E8F0" />
                 <XAxis 
                    dataKey="day" 
                    axisLine={false} 
                    tickLine={false} 
-                   tick={{fontSize: 12, fill: '#737373'}} 
-                   dy={10}
+                   tick={{fontSize: 12, fill: '#94A3B8', fontWeight: 500}} 
+                   dy={12}
                 />
                 <YAxis 
                    axisLine={false} 
                    tickLine={false} 
-                   tick={{fontSize: 12, fill: '#737373'}} 
+                   tick={{fontSize: 12, fill: '#94A3B8', fontWeight: 500}} 
                    tickFormatter={(val) => `$${val/1000}k`}
+                   width={60}
                 />
-                <Tooltip 
-                   contentStyle={{backgroundColor: '#000', border: 'none', borderRadius: '8px', color: '#fff'}}
-                   itemStyle={{color: '#fff'}}
-                />
+                <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94A3B8', strokeWidth: 1, strokeDasharray: '4 4' }} />
                 <Area 
                    type="monotone" 
                    dataKey="revenue" 
-                   stroke="#000" 
-                   strokeWidth={2} 
+                   stroke="#3B82F6" 
+                   strokeWidth={2.5} 
                    fillOpacity={1} 
-                   fill="url(#colorRevenue)" 
+                   fill="url(#colorRevenue)"
+                   dot={{ fill: '#3B82F6', strokeWidth: 0, r: 4 }}
+                   activeDot={{ fill: '#3B82F6', r: 6, stroke: '#fff', strokeWidth: 2 }}
                 />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Recent Activity */}
-        <div className="col-span-1 bg-white/70 backdrop-blur rounded-xl border border-black/10 shadow-sm p-6 overflow-hidden flex flex-col">
-           <h3 className="font-bold text-black mb-6">Recent Alerts</h3>
-           <div className="flex-1 overflow-y-auto pr-2 space-y-4 custom-scrollbar">
+        <div className="col-span-1 bg-white rounded-2xl border border-slate-200/60 shadow-sm p-6 overflow-hidden flex flex-col">
+           <div className="mb-6">
+             <h3 className="font-bold text-slate-950 text-lg">Recent Alerts</h3>
+             <p className="text-slate-500 text-sm mt-0.5">Latest notifications from your properties</p>
+           </div>
+           <div className="flex-1 overflow-y-auto pr-2 space-y-3 scrollbar-thin">
              {[
-                { icon: AlertCircle, color: "text-black", bg: "bg-black/5", title: "Low inventory: Towels", time: "10 mins ago", prop: "Grand Horizon" },
-                { icon: Clock, color: "text-neutral-600", bg: "bg-black/5", title: "Late check-in", time: "32 mins ago", prop: "Skyline Suites" },
-                { icon: CheckCircle2, color: "text-black", bg: "bg-black/5", title: "Maintenance completed", time: "1 hr ago", prop: "Front Desk" },
-                { icon: Users, color: "text-black", bg: "bg-black/5", title: "Shift change: Housekeeping", time: "2 hrs ago", prop: "Grand Horizon" },
+                { icon: AlertCircle, color: "text-amber-600", bg: "bg-amber-50 border border-amber-100", title: "Low inventory: Towels", time: "10 mins ago", prop: "Grand Horizon" },
+                { icon: Clock, color: "text-slate-500", bg: "bg-slate-50 border border-slate-100", title: "Late check-in", time: "32 mins ago", prop: "Skyline Suites" },
+                { icon: CheckCircle2, color: "text-emerald-600", bg: "bg-emerald-50 border border-emerald-100", title: "Maintenance completed", time: "1 hr ago", prop: "Front Desk" },
+                { icon: Users, color: "text-slate-700", bg: "bg-slate-100 border border-slate-200", title: "Shift change: Housekeeping", time: "2 hrs ago", prop: "Grand Horizon" },
              ].map((item, i) => (
-                <div key={i} className="flex gap-4 p-3 rounded-lg hover:bg-white/50 transition-colors">
-                  <div className={`w-8 h-8 rounded-full ${item.bg} flex items-center justify-center shrink-0`}>
-                    <item.icon className={`w-4 h-4 ${item.color}`} />
+                <div key={i} className="flex gap-3 p-3.5 rounded-xl hover:bg-slate-50/80 transition-colors">
+                  <div className={`w-10 h-10 rounded-xl ${item.bg} flex items-center justify-center shrink-0`}>
+                    <item.icon className={`w-5 h-5 ${item.color}`} />
                   </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-black">{item.title}</h4>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-neutral-500">{item.prop}</span>
-                      <span className="w-1 h-1 rounded-full bg-neutral-300" />
-                      <span className="text-xs text-neutral-400">{item.time}</span>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-sm font-semibold text-slate-950">{item.title}</h4>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <span className="text-xs text-slate-500 font-medium">{item.prop}</span>
+                      <span className="w-1 h-1 rounded-full bg-slate-300" />
+                      <span className="text-xs text-slate-400">{item.time}</span>
                     </div>
                   </div>
                 </div>
              ))}
            </div>
-           <button className="w-full mt-4 py-2 text-sm text-black font-medium hover:bg-white/50 rounded-lg transition-colors">
+           <button className="w-full mt-6 py-2.5 text-sm font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors border border-slate-200/60">
                View All Alerts
            </button>
         </div>

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [role, setRole] = useState<"owner" | "manager" | "staff" | "">("");
+  const [role, setRole] = useState<"owner" | "manager" | "staff" | "superadmin" | "">("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
@@ -16,9 +16,10 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!role || !email || !password) return;
-    if (role === "owner") router.push("/owner");
-    else if (role === "manager") router.push("/manager");
-    else if (role === "staff") router.push("/staff");
+    if (role === "owner") { localStorage.setItem("skitech_role", "owner"); router.push("/owner"); }
+    else if (role === "manager") { localStorage.setItem("skitech_role", "manager"); router.push("/manager"); }
+    else if (role === "staff") { localStorage.setItem("skitech_role", "staff"); router.push("/staff"); }
+    else if (role === "superadmin") { localStorage.setItem("skitech_role", "superadmin"); router.push("/superadmin"); }
   };
 
   const roleConfig = [
@@ -122,8 +123,15 @@ export default function LoginPage() {
             <div>
               <p className="text-black text-sm font-bold">Grand Horizon Hotel</p>
               <p className="text-black/55 text-xs font-light">3 properties · 47 staff</p>
-            </div>
-          </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setRole("superadmin")}
+                  className="mt-2 text-[9px] text-black/20 hover:text-black/40 uppercase tracking-widest text-center transition-colors"
+                >
+                  Admin access
+                </button>
+              </div>
           <div className="grid grid-cols-3 gap-2">
             {[
               { l: "KRA Score", v: "94%" },
