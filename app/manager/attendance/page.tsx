@@ -38,13 +38,13 @@ export default function AttendancePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-slate-900" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Attendance Monitoring</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Track staff attendance and working hours — {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</p>
+          <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Attendance Monitoring</h1>
+          <p className="text-neutral-500 text-sm mt-0.5">Track staff attendance and working hours — {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="flex items-center gap-2 bg-white text-slate-700 border border-slate-200 px-5 py-2.5 rounded-xl text-sm shadow-sm hover:border-slate-300 transition-colors"
+          className="flex items-center gap-2 bg-white text-neutral-700 border border-black/10 px-5 py-2.5 rounded-xl text-sm shadow-sm hover:border-black/20 transition-colors"
           style={{ fontWeight: 600 }}
         >
           <Download className="w-4 h-4" /> Export Report
@@ -64,29 +64,29 @@ export default function AttendancePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-white rounded-xl p-5 border border-slate-100 shadow-sm"
+            className="bg-white/70 backdrop-blur rounded-xl p-5 border border-black/10 shadow-sm"
           >
             <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: stat.color + "15" }}>
               <stat.icon className="w-5 h-5" style={{ color: stat.color }} />
             </div>
-            <div className="text-slate-900" style={{ fontSize: "1.6rem", fontWeight: 800 }}>{stat.value}</div>
-            <div className="text-slate-500 text-sm mt-0.5">{stat.label}</div>
+            <div className="text-black" style={{ fontSize: "1.6rem", fontWeight: 800 }}>{stat.value}</div>
+            <div className="text-neutral-500 text-sm mt-0.5">{stat.label}</div>
           </motion.div>
         ))}
       </div>
 
       {/* Weekly Chart */}
-      <div className="bg-white rounded-xl p-6 border border-slate-100 shadow-sm">
+      <div className="bg-white/70 backdrop-blur rounded-xl p-6 border border-black/10 shadow-sm">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-slate-900" style={{ fontWeight: 700 }}>Weekly Attendance Trend</h3>
+          <h3 className="text-black" style={{ fontWeight: 700 }}>Weekly Attendance Trend</h3>
           <div className="flex items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded bg-[#3B82F6]" />
-              <span className="text-slate-600">Present</span>
+              <span className="text-neutral-600">Present</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded bg-[#EF4444]" />
-              <span className="text-slate-600">Absent</span>
+              <span className="text-neutral-600">Absent</span>
             </div>
           </div>
         </div>
@@ -103,20 +103,20 @@ export default function AttendancePage() {
       </div>
 
       {/* Today's Staff */}
-      <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100">
-          <h3 className="text-slate-900" style={{ fontWeight: 700 }}>Today's Staff ({todayStaff.length})</h3>
+      <div className="bg-white/70 backdrop-blur rounded-xl border border-black/10 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-black/10">
+          <h3 className="text-black" style={{ fontWeight: 700 }}>Today's Staff ({todayStaff.length})</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-100">
-                <th className="px-6 py-3 text-left text-xs text-slate-600" style={{ fontWeight: 600 }}>Staff Member</th>
-                <th className="px-6 py-3 text-left text-xs text-slate-600" style={{ fontWeight: 600 }}>Department</th>
-                <th className="px-6 py-3 text-left text-xs text-slate-600" style={{ fontWeight: 600 }}>Check In</th>
-                <th className="px-6 py-3 text-left text-xs text-slate-600" style={{ fontWeight: 600 }}>Check Out</th>
-                <th className="px-6 py-3 text-left text-xs text-slate-600" style={{ fontWeight: 600 }}>Hours</th>
-                <th className="px-6 py-3 text-left text-xs text-slate-600" style={{ fontWeight: 600 }}>Status</th>
+              <tr className="bg-white/50 border-b border-black/10">
+                <th className="px-6 py-3 text-left text-xs text-neutral-600" style={{ fontWeight: 600 }}>Staff Member</th>
+                <th className="px-6 py-3 text-left text-xs text-neutral-600" style={{ fontWeight: 600 }}>Department</th>
+                <th className="px-6 py-3 text-left text-xs text-neutral-600" style={{ fontWeight: 600 }}>Check In</th>
+                <th className="px-6 py-3 text-left text-xs text-neutral-600" style={{ fontWeight: 600 }}>Check Out</th>
+                <th className="px-6 py-3 text-left text-xs text-neutral-600" style={{ fontWeight: 600 }}>Hours</th>
+                <th className="px-6 py-3 text-left text-xs text-neutral-600" style={{ fontWeight: 600 }}>Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
@@ -126,7 +126,7 @@ export default function AttendancePage() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.03 }}
-                  className="hover:bg-slate-50/50 transition-colors"
+                  className="hover:bg-white/50/50 transition-colors"
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
@@ -136,23 +136,23 @@ export default function AttendancePage() {
                       >
                         {s.initials}
                       </div>
-                      <span className="text-slate-800 text-sm" style={{ fontWeight: 600 }}>{s.name}</span>
+                      <span className="text-black text-sm" style={{ fontWeight: 600 }}>{s.name}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-slate-600 text-sm">{s.dept}</td>
+                  <td className="px-6 py-4 text-neutral-600 text-sm">{s.dept}</td>
                   <td className="px-6 py-4">
-                    <span className={`text-sm ${s.status === "in" ? "text-slate-800" : "text-slate-400"}`} style={{ fontWeight: 500 }}>
+                    <span className={`text-sm ${s.status === "in" ? "text-black" : "text-neutral-400"}`} style={{ fontWeight: 500 }}>
                       {s.in}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-slate-400 text-sm">{s.out}</td>
+                  <td className="px-6 py-4 text-neutral-400 text-sm">{s.out}</td>
                   <td className="px-6 py-4">
-                    <span className="text-slate-700 text-sm" style={{ fontWeight: 500 }}>{s.hours}</span>
+                    <span className="text-neutral-700 text-sm" style={{ fontWeight: 500 }}>{s.hours}</span>
                   </td>
                   <td className="px-6 py-4">
                     <span
                       className={`text-xs px-2.5 py-1 rounded-full ${
-                        s.status === "in" ? "bg-[#F0FDF4] text-[#10B981]" : "bg-[#FEF2F2] text-[#EF4444]"
+                        s.status === "in" ? "bg-black/[0.04] text-black" : "bg-black/[0.04] text-black"
                       }`}
                       style={{ fontWeight: 600 }}
                     >

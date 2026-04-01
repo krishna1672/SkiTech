@@ -23,19 +23,19 @@ export default function SettingsPage() {
   return (
     <div className="p-6 lg:p-8">
       <div className="mb-6">
-        <h1 className="text-slate-900" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Settings</h1>
-        <p className="text-slate-500 text-sm mt-0.5">Manage your account and platform preferences</p>
+        <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Settings</h1>
+        <p className="text-neutral-500 text-sm mt-0.5">Manage your account and platform preferences</p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar tabs */}
         <div className="lg:w-52 flex-shrink-0">
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-2">
+          <div className="bg-white/70 backdrop-blur rounded-2xl border border-black/10 shadow-sm p-2">
             {tabs.map(t => (
               <button
                 key={t.id}
                 onClick={() => setTab(t.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all mb-0.5 ${tab === t.id ? "bg-gradient-to-r from-[#3B82F6]/10 to-[#4F46E5]/10 text-[#3B82F6]" : "text-slate-600 hover:bg-slate-50"}`}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all mb-0.5 ${tab === t.id ? "bg-gradient-to-r from-black/10 to-neutral-700/10 text-black" : "text-neutral-600 hover:bg-white/50"}`}
                 style={{ fontWeight: tab === t.id ? 600 : 400 }}
               >
                 <t.icon className="w-4 h-4" />
@@ -48,19 +48,19 @@ export default function SettingsPage() {
         {/* Content */}
         <div className="flex-1">
           {tab === "profile" && (
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
-              <h2 className="text-slate-900 mb-6" style={{ fontWeight: 700, fontSize: "1.05rem" }}>Profile Information</h2>
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-white/70 backdrop-blur rounded-2xl border border-black/10 shadow-sm p-8">
+              <h2 className="text-black mb-6" style={{ fontWeight: 700, fontSize: "1.05rem" }}>Profile Information</h2>
 
               {/* Avatar */}
               <div className="flex items-center gap-5 mb-8">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#3B82F6] to-[#4F46E5] flex items-center justify-center text-white" style={{ fontWeight: 800, fontSize: "1.3rem" }}>
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-black to-neutral-700 flex items-center justify-center text-white" style={{ fontWeight: 800, fontSize: "1.3rem" }}>
                   OW
                 </div>
                 <div>
-                  <button className="text-sm text-[#3B82F6] border border-[#3B82F6]/30 px-4 py-2 rounded-lg hover:bg-[#EFF6FF] transition-colors">
+                  <button className="text-sm text-black border border-black/30 px-4 py-2 rounded-lg hover:bg-black/[0.04] transition-colors">
                     Change Photo
                   </button>
-                  <p className="text-slate-400 text-xs mt-1.5">JPG, PNG up to 2MB</p>
+                  <p className="text-neutral-400 text-xs mt-1.5">JPG, PNG up to 2MB</p>
                 </div>
               </div>
 
@@ -72,19 +72,19 @@ export default function SettingsPage() {
                   { label: "Phone Number", value: "+971 50 000 1111" },
                 ].map((f, i) => (
                   <div key={i}>
-                    <label className="block text-slate-700 text-sm mb-2" style={{ fontWeight: 500 }}>{f.label}</label>
+                    <label className="block text-neutral-700 text-sm mb-2" style={{ fontWeight: 500 }}>{f.label}</label>
                     <input
                       defaultValue={f.value}
-                      className="w-full bg-[#F8F9FB] border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
+                      className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
                     />
                   </div>
                 ))}
               </div>
               <div className="mt-6">
-                <label className="block text-slate-700 text-sm mb-2" style={{ fontWeight: 500 }}>Company / Portfolio Name</label>
+                <label className="block text-neutral-700 text-sm mb-2" style={{ fontWeight: 500 }}>Company / Portfolio Name</label>
                 <input
                   defaultValue="Grand Horizon Property Group"
-                  className="w-full bg-[#F8F9FB] border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
+                  className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
                 />
               </div>
 
@@ -92,7 +92,7 @@ export default function SettingsPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={handleSave}
-                className={`mt-6 flex items-center gap-2 px-6 py-3 rounded-xl text-sm shadow-md transition-all ${saved ? "bg-[#10B981] text-white" : "bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white"}`}
+                className={`mt-6 flex items-center gap-2 px-6 py-3 rounded-xl text-sm shadow-md transition-all ${saved ? "bg-[#10B981] text-white" : "bg-black text-white"}`}
                 style={{ fontWeight: 600 }}
               >
                 <Save className="w-4 h-4" />
@@ -102,8 +102,8 @@ export default function SettingsPage() {
           )}
 
           {tab === "notifications" && (
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
-              <h2 className="text-slate-900 mb-6" style={{ fontWeight: 700, fontSize: "1.05rem" }}>Notification Preferences</h2>
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-white/70 backdrop-blur rounded-2xl border border-black/10 shadow-sm p-8">
+              <h2 className="text-black mb-6" style={{ fontWeight: 700, fontSize: "1.05rem" }}>Notification Preferences</h2>
               <div className="space-y-4">
                 {[
                   { label: "Daily Revenue Summary", desc: "Receive a daily email with revenue metrics", enabled: true },
@@ -112,13 +112,13 @@ export default function SettingsPage() {
                   { label: "Staff Attendance", desc: "Daily attendance summary report", enabled: false },
                   { label: "Task Overdue Alerts", desc: "Immediate notification for overdue KRA tasks", enabled: true },
                 ].map((n, i) => (
-                  <div key={i} className="flex items-center justify-between py-4 border-b border-slate-100">
+                  <div key={i} className="flex items-center justify-between py-4 border-b border-black/10">
                     <div>
-                      <p className="text-slate-800 text-sm" style={{ fontWeight: 600 }}>{n.label}</p>
-                      <p className="text-slate-400 text-xs mt-0.5">{n.desc}</p>
+                      <p className="text-black text-sm" style={{ fontWeight: 600 }}>{n.label}</p>
+                      <p className="text-neutral-400 text-xs mt-0.5">{n.desc}</p>
                     </div>
-                    <div className={`relative w-11 h-6 rounded-full cursor-pointer transition-colors ${n.enabled ? "bg-[#3B82F6]" : "bg-slate-200"}`}>
-                      <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all ${n.enabled ? "left-6" : "left-1"}`} />
+                    <div className={`relative w-11 h-6 rounded-full cursor-pointer transition-colors ${n.enabled ? "bg-[#3B82F6]" : "bg-black/[0.06]"}`}>
+                      <div className={`absolute top-1 w-4 h-4 bg-white/70 backdrop-blur rounded-full shadow transition-all ${n.enabled ? "left-6" : "left-1"}`} />
                     </div>
                   </div>
                 ))}
@@ -127,16 +127,16 @@ export default function SettingsPage() {
           )}
 
           {tab === "security" && (
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
-              <h2 className="text-slate-900 mb-6" style={{ fontWeight: 700, fontSize: "1.05rem" }}>Security</h2>
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-white/70 backdrop-blur rounded-2xl border border-black/10 shadow-sm p-8">
+              <h2 className="text-black mb-6" style={{ fontWeight: 700, fontSize: "1.05rem" }}>Security</h2>
               <div className="space-y-5">
                 {["Current Password", "New Password", "Confirm New Password"].map((f, i) => (
                   <div key={i}>
-                    <label className="block text-slate-700 text-sm mb-2" style={{ fontWeight: 500 }}>{f}</label>
-                    <input type="password" placeholder="••••••••" className="w-full bg-[#F8F9FB] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#3B82F6] transition-all" />
+                    <label className="block text-neutral-700 text-sm mb-2" style={{ fontWeight: 500 }}>{f}</label>
+                    <input type="password" placeholder="••••••••" className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-black/20 transition-all" />
                   </div>
                 ))}
-                <button className="bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white px-6 py-3 rounded-xl text-sm shadow-md" style={{ fontWeight: 600 }}>
+                <button className="bg-black text-white px-6 py-3 rounded-xl text-sm shadow-md" style={{ fontWeight: 600 }}>
                   Update Password
                 </button>
               </div>
@@ -144,28 +144,28 @@ export default function SettingsPage() {
           )}
 
           {tab === "billing" && (
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
-              <h2 className="text-slate-900 mb-6" style={{ fontWeight: 700, fontSize: "1.05rem" }}>Billing & Plan</h2>
-              <div className="bg-gradient-to-br from-[#EFF6FF] to-[#EEF2FF] rounded-2xl p-6 border border-[#3B82F6]/20 mb-6">
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="bg-white/70 backdrop-blur rounded-2xl border border-black/10 shadow-sm p-8">
+              <h2 className="text-black mb-6" style={{ fontWeight: 700, fontSize: "1.05rem" }}>Billing & Plan</h2>
+              <div className="bg-gradient-to-br from-[#EFF6FF] to-[#EEF2FF] rounded-2xl p-6 border border-black/10 mb-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-slate-500 text-xs mb-0.5">Current Plan</p>
-                    <p className="text-slate-900" style={{ fontWeight: 800, fontSize: "1.3rem" }}>Professional</p>
-                    <p className="text-slate-500 text-sm mt-1">$99/month · Renews Feb 1, 2025</p>
+                    <p className="text-neutral-500 text-xs mb-0.5">Current Plan</p>
+                    <p className="text-black" style={{ fontWeight: 800, fontSize: "1.3rem" }}>Professional</p>
+                    <p className="text-neutral-500 text-sm mt-1">$99/month · Renews Feb 1, 2025</p>
                   </div>
                   <div className="text-right">
-                    <button className="bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white px-4 py-2 rounded-xl text-sm shadow-md" style={{ fontWeight: 600 }}>
+                    <button className="bg-black text-white px-4 py-2 rounded-xl text-sm shadow-md" style={{ fontWeight: 600 }}>
                       Upgrade
                     </button>
                   </div>
                 </div>
               </div>
-              <h3 className="text-slate-800 mb-4" style={{ fontWeight: 600, fontSize: "0.95rem" }}>Billing History</h3>
+              <h3 className="text-black mb-4" style={{ fontWeight: 600, fontSize: "0.95rem" }}>Billing History</h3>
               <div className="space-y-2">
                 {["Jan 1, 2025 — $99.00", "Dec 1, 2024 — $99.00", "Nov 1, 2024 — $99.00"].map((b, i) => (
-                  <div key={i} className="flex items-center justify-between py-3 border-b border-slate-100 text-sm">
-                    <span className="text-slate-700">{b}</span>
-                    <span className="text-[#10B981]" style={{ fontWeight: 600 }}>Paid</span>
+                  <div key={i} className="flex items-center justify-between py-3 border-b border-black/10 text-sm">
+                    <span className="text-neutral-700">{b}</span>
+                    <span className="text-black" style={{ fontWeight: 600 }}>Paid</span>
                   </div>
                 ))}
               </div>

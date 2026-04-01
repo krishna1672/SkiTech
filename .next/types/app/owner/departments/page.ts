@@ -1,4 +1,4 @@
-// File: D:\skitech-ui\app\owner\departments\page.tsx
+// File: /Users/haardsolanki/Developer/projects/SkiTech/app/owner/departments/page.tsx
 import * as entry from '../../../../../app/owner/departments/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

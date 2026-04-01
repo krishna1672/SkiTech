@@ -83,8 +83,8 @@ const initMatrix: PermMatrix = {
 function PermCheck({ value, onChange }: { value: boolean; onChange: () => void }) {
   return (
     <button onClick={onChange}
-      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all ${value ? "bg-[#3B82F6] shadow-sm" : "bg-slate-100 hover:bg-slate-200"}`}>
-      <CheckCircle2 className={`w-4 h-4 ${value ? "text-white" : "text-slate-300"}`} />
+      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all ${value ? "bg-[#3B82F6] shadow-sm" : "bg-black/[0.04] hover:bg-black/[0.06]"}`}>
+      <CheckCircle2 className={`w-4 h-4 ${value ? "text-white" : "text-neutral-300"}`} />
     </button>
   );
 }
@@ -132,15 +132,15 @@ function ModuleAssignmentView({ matrix, setMatrix }: {
   return (
     <div className="space-y-5">
       {/* Role selector */}
-      <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-5">
+      <div className="bg-white/70 backdrop-blur rounded-xl border border-black/10 shadow-sm p-5">
         <div className="flex items-center gap-3 mb-4">
-          <Lock className="w-4 h-4 text-slate-400" />
-          <h3 className="text-slate-900 text-sm" style={{ fontWeight: 700 }}>Select Role to Configure</h3>
+          <Lock className="w-4 h-4 text-neutral-400" />
+          <h3 className="text-black text-sm" style={{ fontWeight: 700 }}>Select Role to Configure</h3>
         </div>
         <div className="flex flex-wrap gap-2">
           {roles.map(r => (
             <button key={r} onClick={() => setSelectedRole(r)}
-              className={`px-4 py-2 rounded-xl text-sm transition-all ${selectedRole === r ? "bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white shadow-sm" : "bg-slate-50 border border-slate-200 text-slate-600 hover:border-slate-300"}`}
+              className={`px-4 py-2 rounded-xl text-sm transition-all ${selectedRole === r ? "bg-black text-white shadow-sm" : "bg-white/50 border border-black/10 text-neutral-600 hover:border-black/20"}`}
               style={{ fontWeight: selectedRole === r ? 600 : 400 }}>
               {r}
             </button>
@@ -149,15 +149,15 @@ function ModuleAssignmentView({ matrix, setMatrix }: {
       </div>
 
       {/* Module permissions */}
-      <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+      <div className="bg-white/70 backdrop-blur rounded-xl border border-black/10 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-black/10 flex items-center justify-between">
           <div>
-            <h3 className="text-slate-900 text-sm" style={{ fontWeight: 700 }}>Module Permissions — {selectedRole}</h3>
-            <p className="text-slate-400 text-xs mt-0.5">Toggle permissions for each system module</p>
+            <h3 className="text-black text-sm" style={{ fontWeight: 700 }}>Module Permissions — {selectedRole}</h3>
+            <p className="text-neutral-400 text-xs mt-0.5">Toggle permissions for each system module</p>
           </div>
           <div className="flex items-center gap-3">
             {permKeys.map(p => (
-              <div key={p.key} className="hidden md:flex items-center gap-1 text-xs text-slate-500">
+              <div key={p.key} className="hidden md:flex items-center gap-1 text-xs text-neutral-500">
                 <p.icon className="w-3.5 h-3.5" style={{ color: p.color }} />
                 {p.label}
               </div>
@@ -172,15 +172,15 @@ function ModuleAssignmentView({ matrix, setMatrix }: {
             return (
               <motion.div key={mod.id}
                 initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.04 }}
-                className="flex items-center gap-4 px-6 py-4 hover:bg-slate-50/60 transition-colors">
+                className="flex items-center gap-4 px-6 py-4 hover:bg-white/50/60 transition-colors">
                 {/* Module */}
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: mod.color + "15" }}>
                     <mod.icon className="w-4 h-4" style={{ color: mod.color }} />
                   </div>
                   <div>
-                    <p className="text-slate-800 text-sm" style={{ fontWeight: 600 }}>{mod.label}</p>
-                    <p className="text-slate-400 text-xs">
+                    <p className="text-black text-sm" style={{ fontWeight: 600 }}>{mod.label}</p>
+                    <p className="text-neutral-400 text-xs">
                       {Object.values(modPerms).filter(v => v).length}/4 permissions
                     </p>
                   </div>
@@ -190,7 +190,7 @@ function ModuleAssignmentView({ matrix, setMatrix }: {
                 <div className="flex items-center gap-2.5">
                   {permKeys.map(p => (
                     <div key={p.key} className="flex flex-col items-center gap-1">
-                      <span className="text-[10px] text-slate-400 hidden md:block">{p.label}</span>
+                      <span className="text-[10px] text-neutral-400 hidden md:block">{p.label}</span>
                       <PermCheck value={modPerms[p.key]} onChange={() => togglePerm(mod.id, p.key)} />
                     </div>
                   ))}
@@ -198,7 +198,7 @@ function ModuleAssignmentView({ matrix, setMatrix }: {
 
                 {/* Toggle all */}
                 <button onClick={() => toggleAll(mod.id)}
-                  className={`ml-2 text-xs px-3 py-1.5 rounded-lg transition-colors ${allEnabled ? "bg-red-50 text-red-500 hover:bg-red-100" : "bg-[#EFF6FF] text-[#3B82F6] hover:bg-[#DBEAFE]"}`}
+                  className={`ml-2 text-xs px-3 py-1.5 rounded-lg transition-colors ${allEnabled ? "bg-red-50 text-red-500 hover:bg-red-100" : "bg-black/[0.04] text-black hover:bg-[#DBEAFE]"}`}
                   style={{ fontWeight: 500 }}>
                   {allEnabled ? "Revoke All" : "Grant All"}
                 </button>
@@ -221,21 +221,21 @@ function RoleMatrixView({ matrix }: { matrix: PermMatrix }) {
   ];
 
   return (
-    <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-slate-100">
-        <h3 className="text-slate-900 text-sm" style={{ fontWeight: 700 }}>Role Permission Matrix</h3>
-        <p className="text-slate-400 text-xs mt-0.5">Overview of all roles and module access</p>
+    <div className="bg-white/70 backdrop-blur rounded-xl border border-black/10 shadow-sm overflow-hidden">
+      <div className="px-6 py-4 border-b border-black/10">
+        <h3 className="text-black text-sm" style={{ fontWeight: 700 }}>Role Permission Matrix</h3>
+        <p className="text-neutral-400 text-xs mt-0.5">Overview of all roles and module access</p>
       </div>
 
       <div className="overflow-x-auto">
         <table className="w-full min-w-[700px]">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-100">
-              <th className="px-6 py-3 text-left text-slate-500 text-xs uppercase tracking-wider" style={{ fontWeight: 600 }}>Module</th>
+            <tr className="bg-white/50 border-b border-black/10">
+              <th className="px-6 py-3 text-left text-neutral-500 text-xs uppercase tracking-wider" style={{ fontWeight: 600 }}>Module</th>
               {roles.map(r => (
-                <th key={r} className="px-4 py-3 text-center text-slate-500 text-xs uppercase tracking-wider" style={{ fontWeight: 600 }}>
+                <th key={r} className="px-4 py-3 text-center text-neutral-500 text-xs uppercase tracking-wider" style={{ fontWeight: 600 }}>
                   <div className="flex flex-col items-center gap-1">
-                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#4F46E5] flex items-center justify-center text-white text-[9px]" style={{ fontWeight: 700 }}>
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-black to-neutral-700 flex items-center justify-center text-white text-[9px]" style={{ fontWeight: 700 }}>
                       {r.slice(0, 2).toUpperCase()}
                     </div>
                     {r}
@@ -246,13 +246,13 @@ function RoleMatrixView({ matrix }: { matrix: PermMatrix }) {
           </thead>
           <tbody className="divide-y divide-slate-50">
             {modules.map((mod, i) => (
-              <tr key={mod.id} className={`hover:bg-slate-50/60 transition-colors ${i % 2 === 0 ? "" : "bg-slate-50/30"}`}>
+              <tr key={mod.id} className={`hover:bg-white/50/60 transition-colors ${i % 2 === 0 ? "" : "bg-white/50/30"}`}>
                 <td className="px-6 py-3">
                   <div className="flex items-center gap-2.5">
                     <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: mod.color + "15" }}>
                       <mod.icon className="w-3.5 h-3.5" style={{ color: mod.color }} />
                     </div>
-                    <span className="text-slate-800 text-sm" style={{ fontWeight: 500 }}>{mod.label}</span>
+                    <span className="text-black text-sm" style={{ fontWeight: 500 }}>{mod.label}</span>
                   </div>
                 </td>
                 {roles.map(role => {
@@ -271,7 +271,7 @@ function RoleMatrixView({ matrix }: { matrix: PermMatrix }) {
                           </div>
                         ))}
                       </div>
-                      <p className="text-slate-400 text-[10px] mt-1">{count}/4</p>
+                      <p className="text-neutral-400 text-[10px] mt-1">{count}/4</p>
                     </td>
                   );
                 })}
@@ -282,15 +282,15 @@ function RoleMatrixView({ matrix }: { matrix: PermMatrix }) {
       </div>
 
       {/* Legend */}
-      <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex items-center gap-6 flex-wrap">
-        <span className="text-slate-500 text-xs" style={{ fontWeight: 600 }}>Legend:</span>
+      <div className="px-6 py-4 border-t border-black/10 bg-white/50 flex items-center gap-6 flex-wrap">
+        <span className="text-neutral-500 text-xs" style={{ fontWeight: 600 }}>Legend:</span>
         {[
           { label: "View", color: "#3B82F6" },
           { label: "Create", color: "#10B981" },
           { label: "Edit", color: "#F59E0B" },
           { label: "Delete", color: "#EF4444" },
         ].map(l => (
-          <div key={l.label} className="flex items-center gap-1.5 text-xs text-slate-500">
+          <div key={l.label} className="flex items-center gap-1.5 text-xs text-neutral-500">
             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: l.color }} />
             {l.label}
           </div>
@@ -314,10 +314,10 @@ export default function PermissionsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-slate-900" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Admin Permission Panel</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Configure role-based access across all modules</p>
+          <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Admin Permission Panel</h1>
+          <p className="text-neutral-500 text-sm mt-0.5">Configure role-based access across all modules</p>
         </div>
-        <button className="flex items-center gap-2 bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white px-4 py-2.5 rounded-xl text-sm shadow-md" style={{ fontWeight: 600 }}>
+        <button className="flex items-center gap-2 bg-black text-white px-4 py-2.5 rounded-xl text-sm shadow-md" style={{ fontWeight: 600 }}>
           Save Changes
         </button>
       </div>
@@ -330,12 +330,12 @@ export default function PermissionsPage() {
           { label: "Permissions Granted", value: totalGranted, color: "#10B981", icon: CheckCircle2 },
           { label: "Max Possible", value: roles.length * modules.length * 4, color: "#94A3B8", icon: Lock },
         ].map((s, i) => (
-          <div key={i} className="bg-white rounded-xl p-5 border border-slate-100 shadow-sm flex items-center gap-3">
+          <div key={i} className="bg-white/70 backdrop-blur rounded-xl p-5 border border-black/10 shadow-sm flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: s.color + "15" }}>
               <s.icon className="w-5 h-5" style={{ color: s.color }} />
             </div>
             <div>
-              <p className="text-slate-500 text-xs">{s.label}</p>
+              <p className="text-neutral-500 text-xs">{s.label}</p>
               <p style={{ fontWeight: 800, fontSize: "1.3rem", color: s.color }}>{s.value}</p>
             </div>
           </div>
@@ -343,13 +343,13 @@ export default function PermissionsPage() {
       </div>
 
       {/* View toggle */}
-      <div className="flex gap-1 bg-white border border-slate-200 rounded-2xl p-1.5 w-fit">
+      <div className="flex gap-1 bg-white border border-black/10 rounded-2xl p-1.5 w-fit">
         {[
           { key: "assignment" as const, label: "Module Assignment", icon: Shield },
           { key: "matrix" as const, label: "Permission Matrix", icon: CheckCircle2 },
         ].map(tab => (
           <button key={tab.key} onClick={() => setActiveView(tab.key)}
-            className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm transition-all ${activeView === tab.key ? "bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+            className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm transition-all ${activeView === tab.key ? "bg-black text-white shadow-sm" : "text-neutral-500 hover:text-neutral-700"}`}
             style={{ fontWeight: activeView === tab.key ? 600 : 400 }}>
             <tab.icon className="w-3.5 h-3.5" />
             {tab.label}

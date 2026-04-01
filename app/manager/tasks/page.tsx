@@ -34,16 +34,16 @@ const departments = ["All Departments", "Housekeeping", "F&B", "Maintenance", "F
 const categories = ["Inspection", "Cleaning", "Maintenance", "F&B Service", "Guest Service", "Admin", "Safety", "Inventory"];
 
 const statusConfig = {
-  done: { color: "#10B981", bg: "bg-[#F0FDF4] text-[#10B981]", label: "Done", icon: CheckCircle2 },
-  pending: { color: "#F59E0B", bg: "bg-[#FFFBEB] text-[#F59E0B]", label: "In Progress", icon: Clock },
-  upcoming: { color: "#3B82F6", bg: "bg-[#EFF6FF] text-[#3B82F6]", label: "Upcoming", icon: Calendar },
-  overdue: { color: "#EF4444", bg: "bg-[#FEF2F2] text-[#EF4444]", label: "Overdue", icon: AlertCircle },
+  done: { color: "#10B981", bg: "bg-black/[0.04] text-black", label: "Done", icon: CheckCircle2 },
+  pending: { color: "#F59E0B", bg: "bg-black/[0.04] text-neutral-600", label: "In Progress", icon: Clock },
+  upcoming: { color: "#3B82F6", bg: "bg-black/[0.04] text-black", label: "Upcoming", icon: Calendar },
+  overdue: { color: "#EF4444", bg: "bg-black/[0.04] text-black", label: "Overdue", icon: AlertCircle },
 };
 
 const priorityConfig = {
-  high: { color: "#EF4444", bg: "bg-[#FEF2F2] text-[#EF4444]" },
-  medium: { color: "#F59E0B", bg: "bg-[#FFFBEB] text-[#F59E0B]" },
-  low: { color: "#10B981", bg: "bg-[#F0FDF4] text-[#10B981]" },
+  high: { color: "#EF4444", bg: "bg-black/[0.04] text-black" },
+  medium: { color: "#F59E0B", bg: "bg-black/[0.04] text-neutral-600" },
+  low: { color: "#10B981", bg: "bg-black/[0.04] text-black" },
 };
 
 // ─── New Task Panel ───────────────────────────────────────────────────────────
@@ -90,9 +90,9 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
   };
 
   const priorityOptions: { key: "high" | "medium" | "low"; label: string; color: string; bg: string; icon: string }[] = [
-    { key: "high", label: "High", color: "#EF4444", bg: "#FEF2F2", icon: "🔴" },
-    { key: "medium", label: "Medium", color: "#F59E0B", bg: "#FFFBEB", icon: "🟡" },
-    { key: "low", label: "Low", color: "#10B981", bg: "#F0FDF4", icon: "🟢" },
+    { key: "high", label: "High", color: "#EF4444", bg: "bg-black/[0.04]", icon: "🔴" },
+    { key: "medium", label: "Medium", color: "#F59E0B", bg: "bg-black/[0.04]", icon: "🟡" },
+    { key: "low", label: "Low", color: "#10B981", bg: "bg-black/[0.04]", icon: "🟢" },
   ];
 
   return (
@@ -115,38 +115,38 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
         className="fixed right-0 top-0 bottom-0 w-full max-w-[560px] bg-white z-50 flex flex-col shadow-2xl"
       >
         {/* ── Header ── */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-[#0B1628] to-[#1E293B]">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-gradient-to-r from-[#0B1628] to-[#1E293B]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#4F46E5] flex items-center justify-center shadow-md">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-black to-neutral-700 flex items-center justify-center shadow-md">
               <Plus className="w-5 h-5 text-white" />
             </div>
             <div>
               <h2 className="text-white" style={{ fontWeight: 700, fontSize: "1rem" }}>New Task</h2>
-              <p className="text-slate-400 text-xs">Assign to staff at Skyline Suites</p>
+              <p className="text-neutral-400 text-xs">Assign to staff at Skyline Suites</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-slate-300 hover:bg-white/20 hover:text-white transition-colors"
+            className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-neutral-300 hover:bg-white/20 hover:text-white transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* ── Step tabs ── */}
-        <div className="flex border-b border-slate-100 bg-slate-50">
+        <div className="flex border-b border-black/10 bg-white/50">
           {[{ n: 1 as const, label: "Task Details" }, { n: 2 as const, label: "Assign Staff" }].map(({ n, label }) => (
             <button
               key={n}
               onClick={() => setStep(n)}
               className={`flex-1 flex items-center justify-center gap-2 py-3.5 text-sm transition-all relative ${
-                step === n ? "text-[#3B82F6]" : "text-slate-400 hover:text-slate-600"
+                step === n ? "text-black" : "text-neutral-400 hover:text-neutral-600"
               }`}
               style={{ fontWeight: step === n ? 600 : 400 }}
             >
               <span
                 className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
-                  step === n ? "bg-[#3B82F6] text-white" : "bg-slate-200 text-slate-500"
+                  step === n ? "bg-[#3B82F6] text-white" : "bg-black/[0.06] text-neutral-500"
                 }`}
                 style={{ fontWeight: 700 }}
               >
@@ -174,69 +174,69 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
               >
                 {/* Title */}
                 <div>
-                  <label className="block text-slate-700 text-sm mb-2" style={{ fontWeight: 600 }}>
-                    Task Title <span className="text-[#EF4444]">*</span>
+                  <label className="block text-neutral-700 text-sm mb-2" style={{ fontWeight: 600 }}>
+                    Task Title <span className="text-black">*</span>
                   </label>
                   <input
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     placeholder="e.g. Housekeeping inspection — Floor 1-3"
-                    className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
+                    className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
                   />
                 </div>
 
                 {/* Description */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-slate-700 text-sm mb-2" style={{ fontWeight: 600 }}>
-                    <AlignLeft className="w-3.5 h-3.5 text-slate-400" /> Description
+                  <label className="flex items-center gap-1.5 text-neutral-700 text-sm mb-2" style={{ fontWeight: 600 }}>
+                    <AlignLeft className="w-3.5 h-3.5 text-neutral-400" /> Description
                   </label>
                   <textarea
                     value={description}
                     onChange={e => setDescription(e.target.value)}
                     placeholder="Add task details, notes, or special instructions..."
                     rows={3}
-                    className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all resize-none"
+                    className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all resize-none"
                   />
                 </div>
 
                 {/* Category & Department row */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="flex items-center gap-1.5 text-slate-700 text-sm mb-2" style={{ fontWeight: 600 }}>
-                      <Tag className="w-3.5 h-3.5 text-slate-400" /> Category
+                    <label className="flex items-center gap-1.5 text-neutral-700 text-sm mb-2" style={{ fontWeight: 600 }}>
+                      <Tag className="w-3.5 h-3.5 text-neutral-400" /> Category
                     </label>
                     <div className="relative">
                       <select
                         value={category}
                         onChange={e => setCategory(e.target.value)}
-                        className="w-full appearance-none bg-[#F8FAFC] border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all pr-8"
+                        className="w-full appearance-none bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all pr-8"
                       >
                         {categories.map(c => <option key={c}>{c}</option>)}
                       </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
+                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
                     </div>
                   </div>
                   <div>
-                    <label className="flex items-center gap-1.5 text-slate-700 text-sm mb-2" style={{ fontWeight: 600 }}>
-                      <Building2 className="w-3.5 h-3.5 text-slate-400" /> Department
+                    <label className="flex items-center gap-1.5 text-neutral-700 text-sm mb-2" style={{ fontWeight: 600 }}>
+                      <Building2 className="w-3.5 h-3.5 text-neutral-400" /> Department
                     </label>
                     <div className="relative">
                       <select
                         value={dept}
                         onChange={e => setDept(e.target.value)}
-                        className="w-full appearance-none bg-[#F8FAFC] border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all pr-8"
+                        className="w-full appearance-none bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all pr-8"
                       >
                         {departments.map(d => <option key={d}>{d}</option>)}
                       </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
+                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 pointer-events-none" />
                     </div>
                   </div>
                 </div>
 
                 {/* Priority */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-slate-700 text-sm mb-2.5" style={{ fontWeight: 600 }}>
-                    <Flag className="w-3.5 h-3.5 text-slate-400" /> Priority
+                  <label className="flex items-center gap-1.5 text-neutral-700 text-sm mb-2.5" style={{ fontWeight: 600 }}>
+                    <Flag className="w-3.5 h-3.5 text-neutral-400" /> Priority
                   </label>
                   <div className="flex gap-2.5">
                     {priorityOptions.map(opt => (
@@ -246,11 +246,11 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
                         className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 text-sm transition-all ${
                           priority === opt.key
                             ? "border-current shadow-sm"
-                            : "border-slate-200 text-slate-500 hover:border-slate-300"
+                            : "border-black/10 text-neutral-500 hover:border-black/20"
                         }`}
                         style={{
                           color: priority === opt.key ? opt.color : undefined,
-                          backgroundColor: priority === opt.key ? opt.bg : "#F8FAFC",
+                          backgroundColor: priority === opt.key ? opt.bg : "bg-black/[0.03]",
                           fontWeight: priority === opt.key ? 700 : 400,
                         }}
                       >
@@ -263,29 +263,29 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
 
                 {/* Due date & time */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-slate-700 text-sm mb-2" style={{ fontWeight: 600 }}>
-                    <Calendar className="w-3.5 h-3.5 text-slate-400" /> Due Date & Time
+                  <label className="flex items-center gap-1.5 text-neutral-700 text-sm mb-2" style={{ fontWeight: 600 }}>
+                    <Calendar className="w-3.5 h-3.5 text-neutral-400" /> Due Date & Time
                   </label>
                   <div className="grid grid-cols-2 gap-3">
                     <input
                       type="date"
                       value={dueDate}
                       onChange={e => setDueDate(e.target.value)}
-                      className="bg-[#F8FAFC] border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
+                      className="bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
                     />
                     <input
                       type="time"
                       value={dueTime}
                       onChange={e => setDueTime(e.target.value)}
-                      className="bg-[#F8FAFC] border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
+                      className="bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
                     />
                   </div>
                 </div>
 
                 {/* Recurrence */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-slate-700 text-sm mb-2" style={{ fontWeight: 600 }}>
-                    <Repeat className="w-3.5 h-3.5 text-slate-400" /> Recurrence
+                  <label className="flex items-center gap-1.5 text-neutral-700 text-sm mb-2" style={{ fontWeight: 600 }}>
+                    <Repeat className="w-3.5 h-3.5 text-neutral-400" /> Recurrence
                   </label>
                   <div className="flex gap-2 flex-wrap">
                     {["none", "daily", "weekly", "monthly"].map(r => (
@@ -294,8 +294,8 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
                         onClick={() => setRecurrence(r)}
                         className={`px-4 py-1.5 rounded-lg border text-xs transition-all capitalize ${
                           recurrence === r
-                            ? "bg-[#EFF6FF] border-[#3B82F6] text-[#3B82F6]"
-                            : "bg-[#F8FAFC] border-slate-200 text-slate-500 hover:border-slate-300"
+                            ? "bg-black/[0.04] border-[#3B82F6] text-black"
+                            : "bg-black/[0.03] border-black/10 text-neutral-500 hover:border-black/20"
                         }`}
                         style={{ fontWeight: recurrence === r ? 600 : 400 }}
                       >
@@ -307,18 +307,18 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
 
                 {/* Checklist */}
                 <div>
-                  <label className="flex items-center gap-1.5 text-slate-700 text-sm mb-2.5" style={{ fontWeight: 600 }}>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-slate-400" /> Checklist
-                    <span className="ml-auto text-xs text-slate-400" style={{ fontWeight: 400 }}>
+                  <label className="flex items-center gap-1.5 text-neutral-700 text-sm mb-2.5" style={{ fontWeight: 600 }}>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-neutral-400" /> Checklist
+                    <span className="ml-auto text-xs text-neutral-400" style={{ fontWeight: 400 }}>
                       {checklist.filter(c => c.done).length}/{checklist.length} done
                     </span>
                   </label>
 
                   {/* Progress bar */}
                   {checklist.length > 0 && (
-                    <div className="h-1 bg-slate-100 rounded-full mb-3">
+                    <div className="h-1 bg-black/[0.04] rounded-full mb-3">
                       <div
-                        className="h-1 rounded-full bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] transition-all duration-500"
+                        className="h-1 rounded-full bg-black transition-all duration-500"
                         style={{ width: `${checklist.length ? (checklist.filter(c => c.done).length / checklist.length) * 100 : 0}%` }}
                       />
                     </div>
@@ -332,21 +332,21 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
-                          className="flex items-center gap-3 bg-[#F8FAFC] border border-slate-200 rounded-xl px-3 py-2.5 group"
+                          className="flex items-center gap-3 bg-black/[0.03] border border-black/10 rounded-xl px-3 py-2.5 group"
                         >
-                          <GripVertical className="w-3.5 h-3.5 text-slate-300 flex-shrink-0 cursor-grab" />
+                          <GripVertical className="w-3.5 h-3.5 text-neutral-300 flex-shrink-0 cursor-grab" />
                           <input
                             type="checkbox"
                             checked={item.done}
                             onChange={() => setChecklist(prev => prev.map(c => c.id === item.id ? { ...c, done: !c.done } : c))}
                             className="w-4 h-4 rounded border-slate-300 accent-[#3B82F6] cursor-pointer flex-shrink-0"
                           />
-                          <span className={`flex-1 text-sm ${item.done ? "line-through text-slate-400" : "text-slate-700"}`}>
+                          <span className={`flex-1 text-sm ${item.done ? "line-through text-neutral-400" : "text-neutral-700"}`}>
                             {item.text}
                           </span>
                           <button
                             onClick={() => removeCheckItem(item.id)}
-                            className="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-red-400 transition-all"
+                            className="opacity-0 group-hover:opacity-100 text-neutral-300 hover:text-red-400 transition-all"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -361,11 +361,11 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
                       onChange={e => setNewCheckItem(e.target.value)}
                       onKeyDown={e => e.key === "Enter" && addCheckItem()}
                       placeholder="Add checklist item..."
-                      className="flex-1 bg-[#F8FAFC] border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3B82F6] transition-colors"
+                      className="flex-1 bg-black/[0.03] border border-black/10 rounded-xl px-3 py-2 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black/20 transition-colors"
                     />
                     <button
                       onClick={addCheckItem}
-                      className="px-3 py-2 rounded-xl bg-[#EFF6FF] text-[#3B82F6] hover:bg-[#DBEAFE] transition-colors"
+                      className="px-3 py-2 rounded-xl bg-black/[0.04] text-black hover:bg-[#DBEAFE] transition-colors"
                     >
                       <Plus className="w-4 h-4" />
                     </button>
@@ -373,22 +373,22 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
                 </div>
 
                 {/* Notify toggle */}
-                <div className="flex items-center justify-between p-4 bg-[#F8FAFC] border border-slate-200 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-black/[0.03] border border-black/10 rounded-xl">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#EFF6FF] flex items-center justify-center">
-                      <Bell className="w-4 h-4 text-[#3B82F6]" />
+                    <div className="w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center">
+                      <Bell className="w-4 h-4 text-black" />
                     </div>
                     <div>
-                      <p className="text-slate-800 text-sm" style={{ fontWeight: 500 }}>Send notification</p>
-                      <p className="text-slate-400 text-xs">Notify assigned staff via app</p>
+                      <p className="text-black text-sm" style={{ fontWeight: 500 }}>Send notification</p>
+                      <p className="text-neutral-400 text-xs">Notify assigned staff via app</p>
                     </div>
                   </div>
                   <button
                     onClick={() => setNotify(!notify)}
-                    className={`w-11 h-6 rounded-full transition-colors relative ${notify ? "bg-[#3B82F6]" : "bg-slate-200"}`}
+                    className={`w-11 h-6 rounded-full transition-colors relative ${notify ? "bg-[#3B82F6]" : "bg-black/[0.06]"}`}
                   >
                     <span
-                      className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-all ${notify ? "left-5.5 translate-x-0.5" : "left-0.5"}`}
+                      className={`absolute top-0.5 w-5 h-5 bg-white/70 backdrop-blur rounded-full shadow-sm transition-all ${notify ? "left-5.5 translate-x-0.5" : "left-0.5"}`}
                       style={{ left: notify ? "calc(100% - 22px)" : "2px" }}
                     />
                   </button>
@@ -405,7 +405,7 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
               >
                 {/* Selected staff preview */}
                 {selectedStaff.length > 0 && (
-                  <div className="bg-[#EFF6FF] border border-[#BFDBFE] rounded-xl p-4">
+                  <div className="bg-black/[0.04] border border-[#BFDBFE] rounded-xl p-4">
                     <p className="text-[#1D4ED8] text-xs mb-3" style={{ fontWeight: 600 }}>
                       {selectedStaff.length} staff member{selectedStaff.length > 1 ? "s" : ""} selected
                     </p>
@@ -417,8 +417,8 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
                             <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px]" style={{ backgroundColor: s.color, fontWeight: 700 }}>
                               {s.initials}
                             </div>
-                            <span className="text-slate-700 text-xs" style={{ fontWeight: 500 }}>{s.name.split(" ")[0]}</span>
-                            <button onClick={() => toggleStaff(id)} className="text-slate-400 hover:text-red-400 transition-colors">
+                            <span className="text-neutral-700 text-xs" style={{ fontWeight: 500 }}>{s.name.split(" ")[0]}</span>
+                            <button onClick={() => toggleStaff(id)} className="text-neutral-400 hover:text-red-400 transition-colors">
                               <X className="w-3 h-3" />
                             </button>
                           </div>
@@ -430,12 +430,12 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
 
                 {/* Search */}
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
                   <input
                     value={staffSearch}
                     onChange={e => setStaffSearch(e.target.value)}
                     placeholder="Search by name or department..."
-                    className="w-full bg-[#F8FAFC] border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
+                    className="w-full bg-black/[0.03] border border-black/10 rounded-xl pl-10 pr-4 py-3 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
                   />
                 </div>
 
@@ -447,8 +447,8 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
                       onClick={() => setStaffSearch(d === "All" ? "" : d)}
                       className={`px-3 py-1 rounded-lg border text-xs transition-all ${
                         (d === "All" && !staffSearch) || staffSearch === d
-                          ? "bg-[#EFF6FF] border-[#3B82F6] text-[#3B82F6]"
-                          : "bg-[#F8FAFC] border-slate-200 text-slate-500 hover:border-slate-300"
+                          ? "bg-black/[0.04] border-[#3B82F6] text-black"
+                          : "bg-black/[0.03] border-black/10 text-neutral-500 hover:border-black/20"
                       }`}
                       style={{ fontWeight: (d === "All" && !staffSearch) || staffSearch === d ? 600 : 400 }}
                     >
@@ -459,7 +459,7 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
 
                 {/* Staff list */}
                 <div className="space-y-2">
-                  <p className="text-slate-500 text-xs" style={{ fontWeight: 500 }}>
+                  <p className="text-neutral-500 text-xs" style={{ fontWeight: 500 }}>
                     {filteredStaff.length} staff member{filteredStaff.length !== 1 ? "s" : ""} available
                   </p>
                   <AnimatePresence>
@@ -474,8 +474,8 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
                           onClick={() => toggleStaff(s.id)}
                           className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 text-left transition-all ${
                             isSelected
-                              ? "border-[#3B82F6] bg-[#EFF6FF]"
-                              : "border-slate-200 bg-[#F8FAFC] hover:border-slate-300 hover:bg-slate-50"
+                              ? "border-[#3B82F6] bg-black/[0.04]"
+                              : "border-black/10 bg-black/[0.03] hover:border-black/20 hover:bg-white/50"
                           }`}
                         >
                           {/* Avatar */}
@@ -488,11 +488,11 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
 
                           {/* Info */}
                           <div className="flex-1 min-w-0">
-                            <p className="text-slate-900 text-sm" style={{ fontWeight: isSelected ? 700 : 500 }}>{s.name}</p>
-                            <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+                            <p className="text-black text-sm" style={{ fontWeight: isSelected ? 700 : 500 }}>{s.name}</p>
+                            <div className="flex items-center gap-2 text-xs text-neutral-500 mt-0.5">
                               <span>{s.role}</span>
                               <span>·</span>
-                              <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-600">{s.dept}</span>
+                              <span className="px-1.5 py-0.5 rounded bg-black/[0.06] text-neutral-600">{s.dept}</span>
                             </div>
                           </div>
 
@@ -515,18 +515,18 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
         </div>
 
         {/* ── Footer ── */}
-        <div className="px-6 py-4 border-t border-slate-100 bg-slate-50">
+        <div className="px-6 py-4 border-t border-black/10 bg-white/50">
           {step === 1 ? (
             <div className="flex gap-3">
               <button
                 onClick={onClose}
-                className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm hover:bg-slate-100 transition-colors"
+                className="px-5 py-2.5 rounded-xl border border-black/10 text-neutral-600 text-sm hover:bg-black/[0.04] transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={() => setStep(2)}
-                className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white text-sm shadow-md hover:opacity-90 transition-opacity"
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-black text-white text-sm shadow-md hover:opacity-90 transition-opacity"
                 style={{ fontWeight: 600 }}
               >
                 Next: Assign Staff <ChevronRight className="w-4 h-4" />
@@ -536,14 +536,14 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
             <div className="flex gap-3">
               <button
                 onClick={() => setStep(1)}
-                className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm hover:bg-slate-100 transition-colors"
+                className="px-5 py-2.5 rounded-xl border border-black/10 text-neutral-600 text-sm hover:bg-black/[0.04] transition-colors"
               >
                 ← Back
               </button>
               <button
                 onClick={handleSubmit}
                 disabled={!title.trim() || selectedStaff.length === 0}
-                className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white text-sm shadow-md hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-black text-white text-sm shadow-md hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{ fontWeight: 600 }}
               >
                 <CheckCircle2 className="w-4 h-4" />
@@ -553,7 +553,7 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
           )}
 
           {/* Hint */}
-          <p className="text-center text-slate-400 text-xs mt-2.5">
+          <p className="text-center text-neutral-400 text-xs mt-2.5">
             {step === 1
               ? `${title.trim() ? "✓ Title set" : "⚠ Title required"} · ${checklist.length} checklist item${checklist.length !== 1 ? "s" : ""}`
               : `${selectedStaff.length === 0 ? "⚠ Select at least one staff member" : `✓ ${selectedStaff.length} assigned`}`}
@@ -599,14 +599,14 @@ export default function TasksPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-slate-900" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Task Management</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Assign and track daily operational tasks</p>
+          <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Task Management</h1>
+          <p className="text-neutral-500 text-sm mt-0.5">Assign and track daily operational tasks</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => setShowNewTask(true)}
-          className="flex items-center gap-2 bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white px-5 py-2.5 rounded-xl text-sm shadow-md"
+          className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-xl text-sm shadow-md"
           style={{ fontWeight: 600 }}
         >
           <Plus className="w-4 h-4" /> New Task
@@ -626,33 +626,33 @@ export default function TasksPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-white rounded-xl p-5 border border-slate-100 shadow-sm"
+            className="bg-white/70 backdrop-blur rounded-xl p-5 border border-black/10 shadow-sm"
           >
-            <div className="text-slate-500 text-sm mb-1">{stat.label}</div>
-            <div className="text-slate-900" style={{ fontSize: "1.8rem", fontWeight: 800, color: stat.color }}>{stat.value}</div>
+            <div className="text-neutral-500 text-sm mb-1">{stat.label}</div>
+            <div className="text-black" style={{ fontSize: "1.8rem", fontWeight: 800, color: stat.color }}>{stat.value}</div>
           </motion.div>
         ))}
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl p-5 border border-slate-100 shadow-sm">
+      <div className="bg-white/70 backdrop-blur rounded-xl p-5 border border-black/10 shadow-sm">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search tasks or assignees..."
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
+              className="w-full bg-white/50 border border-black/10 rounded-lg pl-10 pr-4 py-2.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
             />
           </div>
           <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-slate-500" />
+            <Filter className="w-4 h-4 text-neutral-500" />
             <select
               value={filterStatus}
               onChange={e => setFilterStatus(e.target.value)}
-              className="bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
+              className="bg-white/50 border border-black/10 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-black/20 focus:ring-2 focus:ring-[#3B82F6]/10 transition-all"
             >
               <option value="all">All Status</option>
               <option value="done">Done</option>
@@ -665,9 +665,9 @@ export default function TasksPage() {
       </div>
 
       {/* Task List */}
-      <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100">
-          <h3 className="text-slate-900" style={{ fontWeight: 700 }}>All Tasks ({filteredTasks.length})</h3>
+      <div className="bg-white/70 backdrop-blur rounded-xl border border-black/10 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-black/10">
+          <h3 className="text-black" style={{ fontWeight: 700 }}>All Tasks ({filteredTasks.length})</h3>
         </div>
         <div className="divide-y divide-slate-50">
           {filteredTasks.map((t, i) => {
@@ -681,14 +681,14 @@ export default function TasksPage() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.03 }}
-                className="flex items-center gap-4 px-6 py-4 hover:bg-slate-50/50 transition-colors group"
+                className="flex items-center gap-4 px-6 py-4 hover:bg-white/50/50 transition-colors group"
               >
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: statusCfg.color + "15" }}>
                   <StatusIcon className="w-5 h-5" style={{ color: statusCfg.color }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-slate-800 text-sm mb-1" style={{ fontWeight: 600 }}>{t.task}</p>
-                  <div className="flex items-center gap-4 text-xs text-slate-500">
+                  <p className="text-black text-sm mb-1" style={{ fontWeight: 600 }}>{t.task}</p>
+                  <div className="flex items-center gap-4 text-xs text-neutral-500">
                     <span className="flex items-center gap-1"><User className="w-3 h-3" /> {t.assignee}</span>
                     <span>·</span>
                     <span>{t.dept}</span>

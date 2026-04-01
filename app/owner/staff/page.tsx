@@ -116,17 +116,17 @@ function AddStaffModal({ onClose, onAdd }: AddStaffModalProps) {
         className="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#EFF6FF] flex items-center justify-center">
-              <User className="w-5 h-5 text-[#3B82F6]" />
+            <div className="w-9 h-9 rounded-xl bg-black/[0.04] flex items-center justify-center">
+              <User className="w-5 h-5 text-black" />
             </div>
             <div>
-              <h2 className="text-slate-900" style={{ fontWeight: 800, fontSize: "1rem" }}>Add Staff Member</h2>
-              <p className="text-slate-400 text-xs mt-0.5">Register a new team member</p>
+              <h2 className="text-black" style={{ fontWeight: 800, fontSize: "1rem" }}>Add Staff Member</h2>
+              <p className="text-neutral-400 text-xs mt-0.5">Register a new team member</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+          <button onClick={onClose} className="p-2 text-neutral-400 hover:text-neutral-600 hover:bg-black/[0.04] rounded-lg transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -146,48 +146,48 @@ function AddStaffModal({ onClose, onAdd }: AddStaffModalProps) {
 
           {/* Full Name */}
           <div>
-            <label className="block text-xs text-slate-600 mb-1.5" style={{ fontWeight: 600 }}>Full Name <span className="text-red-400">*</span></label>
+            <label className="block text-xs text-neutral-600 mb-1.5" style={{ fontWeight: 600 }}>Full Name <span className="text-red-400">*</span></label>
             <input
               value={name} onChange={e => setName(e.target.value)}
               placeholder="e.g. Ahmed Khalid"
-              className={`w-full border rounded-xl px-4 py-2.5 text-sm focus:outline-none transition-colors ${errors.name ? "border-red-300" : "border-slate-200 focus:border-[#3B82F6]"}`}
+              className={`w-full border rounded-xl px-4 py-2.5 text-sm focus:outline-none transition-colors ${errors.name ? "border-red-300" : "border-black/10 focus:border-black/20"}`}
             />
             {errors.name && <p className="text-red-400 text-xs mt-1 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{errors.name}</p>}
           </div>
 
           {/* Department */}
           <div>
-            <label className="block text-xs text-slate-600 mb-1.5" style={{ fontWeight: 600 }}>Department</label>
-            <select value={dept} onChange={e => handleDeptChange(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#3B82F6] bg-white">
+            <label className="block text-xs text-neutral-600 mb-1.5" style={{ fontWeight: 600 }}>Department</label>
+            <select value={dept} onChange={e => handleDeptChange(e.target.value)} className="w-full border border-black/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-black/20 bg-white">
               {DEPT_OPTIONS.map(d => <option key={d}>{d}</option>)}
             </select>
           </div>
 
           {/* Role */}
           <div>
-            <label className="block text-xs text-slate-600 mb-1.5" style={{ fontWeight: 600 }}>Job Role</label>
-            <select value={role} onChange={e => setRole(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#3B82F6] bg-white">
+            <label className="block text-xs text-neutral-600 mb-1.5" style={{ fontWeight: 600 }}>Job Role</label>
+            <select value={role} onChange={e => setRole(e.target.value)} className="w-full border border-black/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-black/20 bg-white">
               {(ROLE_OPTIONS[dept] || []).map(r => <option key={r}>{r}</option>)}
             </select>
           </div>
 
           {/* Property */}
           <div>
-            <label className="block text-xs text-slate-600 mb-1.5" style={{ fontWeight: 600 }}>Assigned Property</label>
-            <select value={property} onChange={e => setProperty(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#3B82F6] bg-white">
+            <label className="block text-xs text-neutral-600 mb-1.5" style={{ fontWeight: 600 }}>Assigned Property</label>
+            <select value={property} onChange={e => setProperty(e.target.value)} className="w-full border border-black/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-black/20 bg-white">
               {PROPERTIES.map(p => <option key={p}>{p}</option>)}
             </select>
           </div>
 
           {/* Shift */}
           <div>
-            <label className="block text-xs text-slate-600 mb-2" style={{ fontWeight: 600 }}>Shift</label>
+            <label className="block text-xs text-neutral-600 mb-2" style={{ fontWeight: 600 }}>Shift</label>
             <div className="grid grid-cols-3 gap-2">
               {SHIFTS.map(s => (
                 <button
                   key={s}
                   onClick={() => setShift(s)}
-                  className={`py-2.5 rounded-xl text-sm transition-all border ${shift === s ? "bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white border-transparent shadow-sm" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}
+                  className={`py-2.5 rounded-xl text-sm transition-all border ${shift === s ? "bg-black text-white border-transparent shadow-sm" : "border-black/10 text-neutral-600 hover:border-black/20"}`}
                   style={{ fontWeight: 600 }}
                 >
                   {s}
@@ -198,13 +198,13 @@ function AddStaffModal({ onClose, onAdd }: AddStaffModalProps) {
 
           {/* Status */}
           <div>
-            <label className="block text-xs text-slate-600 mb-2" style={{ fontWeight: 600 }}>Initial Status</label>
+            <label className="block text-xs text-neutral-600 mb-2" style={{ fontWeight: 600 }}>Initial Status</label>
             <div className="grid grid-cols-2 gap-2">
               {STATUSES.map(s => (
                 <button
                   key={s}
                   onClick={() => setStatus(s)}
-                  className={`py-2.5 rounded-xl text-sm capitalize transition-all border ${status === s ? "bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white border-transparent shadow-sm" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}
+                  className={`py-2.5 rounded-xl text-sm capitalize transition-all border ${status === s ? "bg-black text-white border-transparent shadow-sm" : "border-black/10 text-neutral-600 hover:border-black/20"}`}
                   style={{ fontWeight: 600 }}
                 >
                   {s === "present" ? "Present" : "Day Off"}
@@ -217,9 +217,9 @@ function AddStaffModal({ onClose, onAdd }: AddStaffModalProps) {
           {name.trim() && (
             <motion.div
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-slate-50 rounded-xl p-4 border border-slate-100"
+              className="bg-white/50 rounded-xl p-4 border border-black/10"
             >
-              <p className="text-xs text-slate-400 mb-2" style={{ fontWeight: 600 }}>Preview</p>
+              <p className="text-xs text-neutral-400 mb-2" style={{ fontWeight: 600 }}>Preview</p>
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0"
@@ -228,11 +228,11 @@ function AddStaffModal({ onClose, onAdd }: AddStaffModalProps) {
                   {getInitials(name.trim())}
                 </div>
                 <div>
-                  <p className="text-slate-800 text-sm" style={{ fontWeight: 700 }}>{name.trim()}</p>
-                  <p className="text-slate-400 text-xs">{role} · {dept} · {property}</p>
+                  <p className="text-black text-sm" style={{ fontWeight: 700 }}>{name.trim()}</p>
+                  <p className="text-neutral-400 text-xs">{role} · {dept} · {property}</p>
                 </div>
                 <div className="ml-auto">
-                  <span className={`text-xs px-2.5 py-1 rounded-full ${shift === "Morning" ? "bg-[#EFF6FF] text-[#3B82F6]" : shift === "Afternoon" ? "bg-[#FFFBEB] text-[#F59E0B]" : "bg-[#EEF2FF] text-[#6366F1]"}`} style={{ fontWeight: 600 }}>
+                  <span className={`text-xs px-2.5 py-1 rounded-full ${shift === "Morning" ? "bg-black/[0.04] text-black" : shift === "Afternoon" ? "bg-black/[0.04] text-neutral-600" : "bg-black/[0.04] text-black"}`} style={{ fontWeight: 600 }}>
                     {shift}
                   </span>
                 </div>
@@ -242,14 +242,14 @@ function AddStaffModal({ onClose, onAdd }: AddStaffModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-slate-100 flex items-center gap-3">
-          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm hover:bg-slate-50 transition-colors" style={{ fontWeight: 600 }}>
+        <div className="px-6 py-4 border-t border-black/10 flex items-center gap-3">
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-black/10 text-neutral-600 text-sm hover:bg-white/50 transition-colors" style={{ fontWeight: 600 }}>
             Cancel
           </button>
           <motion.button
             whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
             onClick={handleAdd}
-            className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white text-sm shadow-md flex items-center justify-center gap-2"
+            className="flex-1 py-2.5 rounded-xl bg-black text-white text-sm shadow-md flex items-center justify-center gap-2"
             style={{ fontWeight: 600 }}
           >
             <ChevronRight className="w-4 h-4" /> Add Staff Member
@@ -282,13 +282,13 @@ export default function StaffPage() {
     <div className="p-6 lg:p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-slate-900" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Staff</h1>
-          <p className="text-slate-500 text-sm mt-0.5">{staff.length} staff members across all properties</p>
+          <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Staff</h1>
+          <p className="text-neutral-500 text-sm mt-0.5">{staff.length} staff members across all properties</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
           onClick={() => setShowAdd(true)}
-          className="flex items-center gap-2 bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white px-4 py-2.5 rounded-xl text-sm shadow-md"
+          className="flex items-center gap-2 bg-black text-white px-4 py-2.5 rounded-xl text-sm shadow-md"
           style={{ fontWeight: 600 }}
         >
           <Plus className="w-4 h-4" /> Add Staff
@@ -298,18 +298,18 @@ export default function StaffPage() {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
           <input
             value={search} onChange={e => setSearch(e.target.value)}
             placeholder="Search staff..."
-            className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:border-[#3B82F6] transition-colors"
+            className="w-full bg-white border border-black/10 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:border-black/20 transition-colors"
           />
         </div>
         <div className="flex gap-2 flex-wrap">
           {depts.map(d => (
             <button
               key={d} onClick={() => setDept(d)}
-              className={`px-3 py-2 rounded-xl text-sm transition-all ${dept === d ? "bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white shadow-sm" : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300"}`}
+              className={`px-3 py-2 rounded-xl text-sm transition-all ${dept === d ? "bg-black text-white shadow-sm" : "bg-white border border-black/10 text-neutral-600 hover:border-black/20"}`}
               style={{ fontWeight: dept === d ? 600 : 400 }}
             >
               {d}
@@ -325,20 +325,20 @@ export default function StaffPage() {
           { label: "On Leave / Off", value: staff.filter(s => s.status === "off").length, color: "#F59E0B" },
           { label: "Night Shift", value: staff.filter(s => s.shift === "Night").length, color: "#6366F1" },
         ].map((s, i) => (
-          <div key={i} className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm text-center">
+          <div key={i} className="bg-white/70 backdrop-blur rounded-xl p-4 border border-black/10 shadow-sm text-center">
             <div className="text-2xl" style={{ fontWeight: 800, color: s.color }}>{s.value}</div>
-            <div className="text-slate-500 text-xs mt-0.5">{s.label}</div>
+            <div className="text-neutral-500 text-xs mt-0.5">{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-white/70 backdrop-blur rounded-2xl border border-black/10 shadow-sm overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-100">
+            <tr className="bg-white/50 border-b border-black/10">
               {["Staff Member", "Role", "Property", "Department", "Shift", "Status"].map(h => (
-                <th key={h} className="px-5 py-3.5 text-left text-slate-500 text-xs uppercase tracking-wider" style={{ fontWeight: 600 }}>{h}</th>
+                <th key={h} className="px-5 py-3.5 text-left text-neutral-500 text-xs uppercase tracking-wider" style={{ fontWeight: 600 }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -348,7 +348,7 @@ export default function StaffPage() {
                 key={s.id}
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                 transition={{ delay: i * 0.04 }}
-                className="border-t border-slate-50 hover:bg-slate-50/50 transition-colors"
+                className="border-t border-black/5 hover:bg-white/50/50 transition-colors"
               >
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-3">
@@ -358,23 +358,23 @@ export default function StaffPage() {
                     >
                       {s.initials}
                     </div>
-                    <span className="text-slate-800 text-sm" style={{ fontWeight: 600 }}>{s.name}</span>
+                    <span className="text-black text-sm" style={{ fontWeight: 600 }}>{s.name}</span>
                   </div>
                 </td>
-                <td className="px-5 py-4 text-slate-600 text-sm">{s.role}</td>
-                <td className="px-5 py-4 text-slate-600 text-sm">{s.property}</td>
-                <td className="px-5 py-4 text-slate-600 text-sm">{s.dept}</td>
+                <td className="px-5 py-4 text-neutral-600 text-sm">{s.role}</td>
+                <td className="px-5 py-4 text-neutral-600 text-sm">{s.property}</td>
+                <td className="px-5 py-4 text-neutral-600 text-sm">{s.dept}</td>
                 <td className="px-5 py-4">
                   <span className={`text-xs px-2.5 py-1 rounded-full ${
-                    s.shift === "Morning" ? "bg-[#EFF6FF] text-[#3B82F6]" :
-                    s.shift === "Afternoon" ? "bg-[#FFFBEB] text-[#F59E0B]" :
-                    "bg-[#EEF2FF] text-[#6366F1]"
+                    s.shift === "Morning" ? "bg-black/[0.04] text-black" :
+                    s.shift === "Afternoon" ? "bg-black/[0.04] text-neutral-600" :
+                    "bg-black/[0.04] text-black"
                   }`} style={{ fontWeight: 600 }}>
                     {s.shift}
                   </span>
                 </td>
                 <td className="px-5 py-4">
-                  <span className={`text-xs px-2.5 py-1 rounded-full ${s.status === "present" ? "bg-[#F0FDF4] text-[#10B981]" : "bg-slate-100 text-slate-500"}`} style={{ fontWeight: 600 }}>
+                  <span className={`text-xs px-2.5 py-1 rounded-full ${s.status === "present" ? "bg-black/[0.04] text-black" : "bg-black/[0.04] text-neutral-500"}`} style={{ fontWeight: 600 }}>
                     {s.status === "present" ? "Present" : "Off"}
                   </span>
                 </td>
@@ -383,7 +383,7 @@ export default function StaffPage() {
           </tbody>
         </table>
         {filtered.length === 0 && (
-          <div className="py-12 text-center text-slate-400">
+          <div className="py-12 text-center text-neutral-400">
             <User className="w-10 h-10 mx-auto mb-2 opacity-30" />
             <p className="text-sm" style={{ fontWeight: 600 }}>No staff found</p>
           </div>

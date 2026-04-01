@@ -1,4 +1,4 @@
-// File: D:\skitech-ui\app\owner\layout.tsx
+// File: /Users/haardsolanki/Developer/projects/SkiTech/app/owner/layout.tsx
 import * as entry from '../../../../app/owner/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

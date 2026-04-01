@@ -9,10 +9,10 @@ const config: Config = {
   ],
   theme: {
   	extend: {
-  		fontFamily: {
-  			inter: ['Inter', 'sans-serif'],
-  			merriweather: ['Merriweather', 'serif']
-  		},
+   		fontFamily: {
+			inter: ['Inter', 'sans-serif'],
+			merriweather: ['var(--font-merriweather)', 'Georgia', 'serif'],
+		},
   		colors: {
   			background: 'var(--background)',
   			foreground: 'var(--foreground)',

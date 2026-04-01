@@ -58,14 +58,14 @@ export default function PropertiesPage() {
     <div className="p-6 lg:p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-slate-900" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Properties</h1>
-          <p className="text-slate-500 text-sm mt-0.5">{properties.length} properties in your portfolio</p>
+          <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Properties</h1>
+          <p className="text-neutral-500 text-sm mt-0.5">{properties.length} properties in your portfolio</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => setShowAdd(true)}
-          className="flex items-center gap-2 bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white px-4 py-2.5 rounded-xl text-sm shadow-md"
+          className="flex items-center gap-2 bg-black text-white px-4 py-2.5 rounded-xl text-sm shadow-md"
           style={{ fontWeight: 600 }}
         >
           <Plus className="w-4 h-4" /> Add Property
@@ -74,12 +74,12 @@ export default function PropertiesPage() {
 
       {/* Search */}
       <div className="relative mb-6 max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Search properties..."
-          className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:border-[#3B82F6] transition-colors"
+          className="w-full bg-white border border-black/10 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:border-black/20 transition-colors"
         />
       </div>
 
@@ -92,7 +92,7 @@ export default function PropertiesPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
             whileHover={{ y: -4 }}
-            className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden group cursor-pointer"
+            className="bg-white/70 backdrop-blur rounded-2xl border border-black/10 shadow-sm overflow-hidden group cursor-pointer"
           >
             <div className="relative h-40">
               <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -109,8 +109,8 @@ export default function PropertiesPage() {
             </div>
             <div className="p-5">
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">{p.type}</span>
-                <button className="text-slate-400 hover:text-slate-600 p-1">
+                <span className="text-xs text-neutral-500 bg-black/[0.04] px-2.5 py-1 rounded-full">{p.type}</span>
+                <button className="text-neutral-400 hover:text-neutral-600 p-1">
                   <MoreHorizontal className="w-4 h-4" />
                 </button>
               </div>
@@ -120,32 +120,32 @@ export default function PropertiesPage() {
                   { icon: Users, label: "Staff", value: p.staff, color: "#6366F1" },
                   { icon: TrendingUp, label: "Revenue", value: p.revenue, color: "#10B981" },
                 ].map((stat, j) => (
-                  <div key={j} className="text-center p-2 bg-slate-50 rounded-xl">
+                  <div key={j} className="text-center p-2 bg-white/50 rounded-xl">
                     <stat.icon className="w-3.5 h-3.5 mx-auto mb-1" style={{ color: stat.color }} />
-                    <div className="text-slate-900 text-sm" style={{ fontWeight: 700 }}>{stat.value}</div>
-                    <div className="text-slate-400 text-[10px]">{stat.label}</div>
+                    <div className="text-black text-sm" style={{ fontWeight: 700 }}>{stat.value}</div>
+                    <div className="text-neutral-400 text-[10px]">{stat.label}</div>
                   </div>
                 ))}
               </div>
               <div className="mt-4">
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-slate-500 text-xs">Occupancy</span>
-                  <span className="text-slate-700 text-xs" style={{ fontWeight: 600 }}>{p.occ}%</span>
+                  <span className="text-neutral-500 text-xs">Occupancy</span>
+                  <span className="text-neutral-700 text-xs" style={{ fontWeight: 600 }}>{p.occ}%</span>
                 </div>
-                <div className="h-1.5 bg-slate-100 rounded-full">
+                <div className="h-1.5 bg-black/[0.04] rounded-full">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${p.occ}%` }}
                     transition={{ duration: 0.8, delay: i * 0.1 }}
-                    className="h-1.5 rounded-full bg-gradient-to-r from-[#3B82F6] to-[#4F46E5]"
+                    className="h-1.5 rounded-full bg-black"
                   />
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-slate-500 text-xs">Manager: <span className="text-slate-700">{p.manager}</span></span>
+              <div className="mt-4 pt-3 border-t border-black/10 flex items-center justify-between">
+                <span className="text-neutral-500 text-xs">Manager: <span className="text-neutral-700">{p.manager}</span></span>
                 <button
                   onClick={() => router.push(`/owner/properties/${p.id}`)}
-                  className="text-[#3B82F6] text-xs hover:underline"
+                  className="text-black text-xs hover:underline"
                 >
                   View Details →
                 </button>
@@ -158,9 +158,9 @@ export default function PropertiesPage() {
         <motion.button
           whileHover={{ y: -4 }}
           onClick={() => setShowAdd(true)}
-          className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl h-full min-h-[300px] flex flex-col items-center justify-center gap-3 text-slate-400 hover:text-slate-600 hover:border-[#3B82F6]/40 hover:bg-[#EFF6FF]/30 transition-all duration-300"
+          className="bg-white/50 border-2 border-dashed border-black/10 rounded-2xl h-full min-h-[300px] flex flex-col items-center justify-center gap-3 text-neutral-400 hover:text-neutral-600 hover:border-black/10 hover:bg-black/[0.04]/30 transition-all duration-300"
         >
-          <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-xl bg-black/[0.04] flex items-center justify-center">
             <Plus className="w-6 h-6" />
           </div>
           <span className="text-sm" style={{ fontWeight: 500 }}>Add New Property</span>
@@ -173,9 +173,9 @@ export default function PropertiesPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-2xl p-8 w-full max-w-lg shadow-2xl"
+            className="bg-white/70 backdrop-blur rounded-2xl p-8 w-full max-w-lg shadow-2xl"
           >
-            <h2 className="text-slate-900 mb-6" style={{ fontWeight: 800, fontSize: "1.2rem" }}>Add New Property</h2>
+            <h2 className="text-black mb-6" style={{ fontWeight: 800, fontSize: "1.2rem" }}>Add New Property</h2>
             <div className="space-y-4">
               {[
                 { label: "Property Name", placeholder: "Grand Horizon property" },
@@ -184,9 +184,9 @@ export default function PropertiesPage() {
                 { label: "Number of Rooms", placeholder: "142" },
               ].map((f, i) => (
                 <div key={i}>
-                  <label className="block text-slate-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>{f.label}</label>
+                  <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>{f.label}</label>
                   <input
-                    className="w-full bg-[#F8F9FB] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#3B82F6] transition-colors"
+                    className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-black/20 transition-colors"
                     placeholder={f.placeholder}
                   />
                 </div>
@@ -195,13 +195,13 @@ export default function PropertiesPage() {
             <div className="flex gap-3 mt-6">
               <button
                 onClick={() => setShowAdd(false)}
-                className="flex-1 py-3 rounded-xl border border-slate-200 text-slate-600 text-sm hover:bg-slate-50 transition-colors"
+                className="flex-1 py-3 rounded-xl border border-black/10 text-neutral-600 text-sm hover:bg-white/50 transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={() => setShowAdd(false)}
-                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white text-sm shadow-md"
+                className="flex-1 py-3 rounded-xl bg-black text-white text-sm shadow-md"
                 style={{ fontWeight: 600 }}
               >
                 Add Property

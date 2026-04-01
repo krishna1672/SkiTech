@@ -189,10 +189,11 @@ function IllustrationManagers({ hovered }: { hovered: boolean }) {
 
 /** Card 3: Business Analytics — animated donut + sparklines */
 function IllustrationAnalytics({ hovered }: { hovered: boolean }) {
-  // Donut arc helper
+  // Donut arc helper — round to 4 decimals to avoid SSR/client float mismatch
+  const r4 = (n: number) => Number(n.toFixed(4));
   const polarToXY = (cx: number, cy: number, r: number, angle: number) => {
     const rad = (angle - 90) * (Math.PI / 180);
-    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+    return { x: r4(cx + r * Math.cos(rad)), y: r4(cy + r * Math.sin(rad)) };
   };
   const describeArc = (cx: number, cy: number, r: number, start: number, end: number) => {
     const s = polarToXY(cx, cy, r, start);

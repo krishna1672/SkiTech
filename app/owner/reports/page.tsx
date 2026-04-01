@@ -34,10 +34,10 @@ export default function ReportsPage() {
     <div className="p-6 lg:p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-slate-900" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Reports & Analytics</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Performance data across all properties</p>
+          <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Reports & Analytics</h1>
+          <p className="text-neutral-500 text-sm mt-0.5">Performance data across all properties</p>
         </div>
-        <button className="flex items-center gap-2 border border-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm hover:bg-slate-50 transition-colors">
+        <button className="flex items-center gap-2 border border-black/10 text-neutral-700 px-4 py-2.5 rounded-xl text-sm hover:bg-white/50 transition-colors">
           <Download className="w-4 h-4" /> Export Report
         </button>
       </div>
@@ -55,19 +55,19 @@ export default function ReportsPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.07 }}
-            className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm"
+            className="bg-white/70 backdrop-blur rounded-2xl p-5 border border-black/10 shadow-sm"
           >
-            <div className="text-slate-500 text-xs mb-2">{k.label}</div>
-            <div className="text-slate-900" style={{ fontSize: "1.5rem", fontWeight: 800 }}>{k.value}</div>
-            <div className="text-[#10B981] text-xs mt-1">{k.change} vs last month</div>
+            <div className="text-neutral-500 text-xs mb-2">{k.label}</div>
+            <div className="text-black" style={{ fontSize: "1.5rem", fontWeight: 800 }}>{k.value}</div>
+            <div className="text-black text-xs mt-1">{k.change} vs last month</div>
           </motion.div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
         {/* Revenue by Property */}
-        <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
-          <h3 className="text-slate-900 mb-5" style={{ fontWeight: 700 }}>Revenue by Property (6 months)</h3>
+        <div className="lg:col-span-2 bg-white/70 backdrop-blur rounded-2xl p-6 border border-black/10 shadow-sm">
+          <h3 className="text-black mb-5" style={{ fontWeight: 700 }}>Revenue by Property (6 months)</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={revenueData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
@@ -83,8 +83,8 @@ export default function ReportsPage() {
         </div>
 
         {/* Revenue Mix */}
-        <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
-          <h3 className="text-slate-900 mb-5" style={{ fontWeight: 700 }}>Revenue Mix</h3>
+        <div className="bg-white/70 backdrop-blur rounded-2xl p-6 border border-black/10 shadow-sm">
+          <h3 className="text-black mb-5" style={{ fontWeight: 700 }}>Revenue Mix</h3>
           <ResponsiveContainer width="100%" height={180}>
             <PieChart>
               <Pie data={deptRevPie} innerRadius={55} outerRadius={80} paddingAngle={3} dataKey="value">
@@ -98,8 +98,8 @@ export default function ReportsPage() {
       </div>
 
       {/* Occupancy trend */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
-        <h3 className="text-slate-900 mb-5" style={{ fontWeight: 700 }}>Occupancy Trend</h3>
+      <div className="bg-white/70 backdrop-blur rounded-2xl p-6 border border-black/10 shadow-sm">
+        <h3 className="text-black mb-5" style={{ fontWeight: 700 }}>Occupancy Trend</h3>
         <ResponsiveContainer width="100%" height={180}>
           <LineChart data={occData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />

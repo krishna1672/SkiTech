@@ -107,10 +107,11 @@
   }
 
   h1 {
-    font-size: 1.5rem; /* Fallback */
+    font-size: 1.5rem;
     font-size: var(--text-2xl);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
+    font-family: var(--font-merriweather), Georgia, serif !important;
   }
 
   h2 {
@@ -118,6 +119,7 @@
     font-size: var(--text-xl);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
+    font-family: var(--font-merriweather), Georgia, serif !important;
   }
 
   h3 {
@@ -125,6 +127,7 @@
     font-size: var(--text-lg);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
+    font-family: var(--font-merriweather), Georgia, serif !important;
   }
 
   h4 {
@@ -132,6 +135,7 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
+    font-family: var(--font-merriweather), Georgia, serif !important;
   }
 
   label {

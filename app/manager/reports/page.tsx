@@ -38,13 +38,13 @@ export default function ManagerReportsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-slate-900" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Operational Reports</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Daily performance metrics and analytics</p>
+          <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Operational Reports</h1>
+          <p className="text-neutral-500 text-sm mt-0.5">Daily performance metrics and analytics</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="flex items-center gap-2 bg-gradient-to-r from-[#3B82F6] to-[#4F46E5] text-white px-5 py-2.5 rounded-xl text-sm shadow-md"
+          className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-xl text-sm shadow-md"
           style={{ fontWeight: 600 }}
         >
           <Download className="w-4 h-4" /> Export Report
@@ -64,14 +64,14 @@ export default function ManagerReportsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-white rounded-xl p-5 border border-slate-100 shadow-sm"
+            className="bg-white/70 backdrop-blur rounded-xl p-5 border border-black/10 shadow-sm"
           >
             <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: metric.color + "15" }}>
               <metric.icon className="w-5 h-5" style={{ color: metric.color }} />
             </div>
-            <div className="text-slate-900" style={{ fontSize: "1.6rem", fontWeight: 800 }}>{metric.value}</div>
-            <div className="text-slate-500 text-sm mt-0.5">{metric.label}</div>
-            <div className={`text-xs mt-2 ${metric.positive ? "text-[#10B981]" : "text-[#EF4444]"}`}>{metric.change}</div>
+            <div className="text-black" style={{ fontSize: "1.6rem", fontWeight: 800 }}>{metric.value}</div>
+            <div className="text-neutral-500 text-sm mt-0.5">{metric.label}</div>
+            <div className={`text-xs mt-2 ${metric.positive ? "text-black" : "text-black"}`}>{metric.change}</div>
           </motion.div>
         ))}
       </div>
@@ -79,8 +79,8 @@ export default function ManagerReportsPage() {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Revenue Trend */}
-        <div className="bg-white rounded-xl p-6 border border-slate-100 shadow-sm">
-          <h3 className="text-slate-900 mb-5" style={{ fontWeight: 700 }}>Weekly Revenue Trend</h3>
+        <div className="bg-white/70 backdrop-blur rounded-xl p-6 border border-black/10 shadow-sm">
+          <h3 className="text-black mb-5" style={{ fontWeight: 700 }}>Weekly Revenue Trend</h3>
           <ResponsiveContainer width="100%" height={220}>
             <AreaChart data={revenueData}>
               <defs>
@@ -99,8 +99,8 @@ export default function ManagerReportsPage() {
         </div>
 
         {/* Occupancy Rate */}
-        <div className="bg-white rounded-xl p-6 border border-slate-100 shadow-sm">
-          <h3 className="text-slate-900 mb-5" style={{ fontWeight: 700 }}>Occupancy Rate (%)</h3>
+        <div className="bg-white/70 backdrop-blur rounded-xl p-6 border border-black/10 shadow-sm">
+          <h3 className="text-black mb-5" style={{ fontWeight: 700 }}>Occupancy Rate (%)</h3>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={occupancyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
@@ -114,8 +114,8 @@ export default function ManagerReportsPage() {
       </div>
 
       {/* Department Performance */}
-      <div className="bg-white rounded-xl p-6 border border-slate-100 shadow-sm">
-        <h3 className="text-slate-900 mb-5" style={{ fontWeight: 700 }}>Department Performance Scores</h3>
+      <div className="bg-white/70 backdrop-blur rounded-xl p-6 border border-black/10 shadow-sm">
+        <h3 className="text-black mb-5" style={{ fontWeight: 700 }}>Department Performance Scores</h3>
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={departmentPerformance} layout="vertical">
             <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
@@ -140,14 +140,14 @@ export default function ManagerReportsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 + i * 0.05 }}
             whileHover={{ y: -4 }}
-            className="bg-white border border-slate-200 rounded-xl p-5 text-left hover:border-slate-300 transition-all group"
+            className="bg-white border border-black/10 rounded-xl p-5 text-left hover:border-black/20 transition-all group"
           >
             <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ backgroundColor: report.color + "15" }}>
               <report.icon className="w-5 h-5" style={{ color: report.color }} />
             </div>
-            <h4 className="text-slate-900 mb-1 text-sm" style={{ fontWeight: 700 }}>{report.title}</h4>
-            <p className="text-slate-500 text-xs mb-3">{report.desc}</p>
-            <span className="text-[#3B82F6] text-xs group-hover:underline" style={{ fontWeight: 600 }}>Generate Report →</span>
+            <h4 className="text-black mb-1 text-sm" style={{ fontWeight: 700 }}>{report.title}</h4>
+            <p className="text-neutral-500 text-xs mb-3">{report.desc}</p>
+            <span className="text-black text-xs group-hover:underline" style={{ fontWeight: 600 }}>Generate Report →</span>
           </motion.button>
         ))}
       </div>

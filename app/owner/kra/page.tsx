@@ -32,9 +32,9 @@ const deptSummary = [
 ];
 
 const statusMap: Record<string, StatusDef> = {
-  done: { icon: CheckCircle2, color: "#10B981", label: "Completed", bg: "bg-[#F0FDF4] text-[#10B981]" },
-  pending: { icon: Clock, color: "#F59E0B", label: "Pending", bg: "bg-[#FFFBEB] text-[#F59E0B]" },
-  overdue: { icon: AlertCircle, color: "#EF4444", label: "Overdue", bg: "bg-[#FEF2F2] text-[#EF4444]" },
+  done: { icon: CheckCircle2, color: "#10B981", label: "Completed", bg: "bg-black/[0.04] text-black" },
+  pending: { icon: Clock, color: "#F59E0B", label: "Pending", bg: "bg-black/[0.04] text-neutral-600" },
+  overdue: { icon: AlertCircle, color: "#EF4444", label: "Overdue", bg: "bg-black/[0.04] text-black" },
 };
 
 export default function KRAPage() {
@@ -44,12 +44,12 @@ export default function KRAPage() {
     <div className="p-6 lg:p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-slate-900" style={{ fontSize: "1.4rem", fontWeight: 800 }}>KRA Monitoring</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Key Result Area compliance — Today</p>
+          <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>KRA Monitoring</h1>
+          <p className="text-neutral-500 text-sm mt-0.5">Key Result Area compliance — Today</p>
         </div>
-        <div className="flex items-center gap-2 bg-[#EFF6FF] border border-[#3B82F6]/20 rounded-xl px-4 py-2.5">
-          <Shield className="w-4 h-4 text-[#3B82F6]" />
-          <span className="text-[#3B82F6] text-sm" style={{ fontWeight: 700 }}>Overall: {overall}%</span>
+        <div className="flex items-center gap-2 bg-black/[0.04] border border-black/10 rounded-xl px-4 py-2.5">
+          <Shield className="w-4 h-4 text-black" />
+          <span className="text-black text-sm" style={{ fontWeight: 700 }}>Overall: {overall}%</span>
         </div>
       </div>
 
@@ -61,7 +61,7 @@ export default function KRAPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.07 }}
-            className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm text-center"
+            className="bg-white/70 backdrop-blur rounded-2xl p-4 border border-black/10 shadow-sm text-center"
           >
             <div className="relative w-12 h-12 mx-auto mb-3">
               <svg viewBox="0 0 36 36" className="w-12 h-12 -rotate-90">
@@ -77,22 +77,22 @@ export default function KRAPage() {
                 {d.score}%
               </span>
             </div>
-            <p className="text-slate-700 text-xs" style={{ fontWeight: 600 }}>{d.dept}</p>
+            <p className="text-neutral-700 text-xs" style={{ fontWeight: 600 }}>{d.dept}</p>
           </motion.div>
         ))}
       </div>
 
       {/* KRA Table */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100">
-          <h3 className="text-slate-900" style={{ fontWeight: 700 }}>Today's KRA Tasks</h3>
+      <div className="bg-white/70 backdrop-blur rounded-2xl border border-black/10 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-black/10">
+          <h3 className="text-black" style={{ fontWeight: 700 }}>Today's KRA Tasks</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-slate-50">
+              <tr className="bg-white/50">
                 {["Department", "KRA Task", "Due Time", "Status"].map((h, i) => (
-                  <th key={i} className="px-5 py-3.5 text-left text-slate-500 text-xs uppercase tracking-wider" style={{ fontWeight: 600 }}>{h}</th>
+                  <th key={i} className="px-5 py-3.5 text-left text-neutral-500 text-xs uppercase tracking-wider" style={{ fontWeight: 600 }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -105,13 +105,13 @@ export default function KRAPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: i * 0.04 }}
-                    className="border-t border-slate-50 hover:bg-slate-50/50 transition-colors"
+                    className="border-t border-black/5 hover:bg-white/50/50 transition-colors"
                   >
                     <td className="px-5 py-4">
-                      <span className="text-xs bg-[#EFF6FF] text-[#3B82F6] px-2.5 py-1 rounded-full" style={{ fontWeight: 600 }}>{item.dept}</span>
+                      <span className="text-xs bg-black/[0.04] text-black px-2.5 py-1 rounded-full" style={{ fontWeight: 600 }}>{item.dept}</span>
                     </td>
-                    <td className="px-5 py-4 text-slate-800 text-sm">{item.task}</td>
-                    <td className="px-5 py-4 text-slate-500 text-sm">{item.due}</td>
+                    <td className="px-5 py-4 text-black text-sm">{item.task}</td>
+                    <td className="px-5 py-4 text-neutral-500 text-sm">{item.due}</td>
                     <td className="px-5 py-4">
                       <span className={`inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full ${s.bg}`} style={{ fontWeight: 600 }}>
                         <s.icon className="w-3 h-3" />
