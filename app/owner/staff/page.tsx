@@ -54,6 +54,11 @@ function getInitials(name: string) {
   return name.split(" ").slice(0, 2).map(n => n[0]).join("").toUpperCase();
 }
 
+interface AddStaffModalProps {
+  onClose: () => void;
+  onAdd: (member: StaffMember) => void;
+}
+
 function Overlay({ onClick }: { onClick: () => void }) {
   return (
     <motion.div
@@ -244,11 +249,6 @@ function AddStaffModal({ onClose, onAdd }: AddStaffModalProps) {
       </motion.div>
     </>
   );
-}
-
-interface AddStaffModalProps {
-  onClose: () => void;
-  onAdd: (member: StaffMember) => void;
 }
 
 export default function StaffPage() {

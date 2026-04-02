@@ -19,45 +19,54 @@ function BlinkingCursor({ visible }: { visible: boolean }) {
   );
 }
 
+const BANDS = [
+  { yp: 0.18, amp: 0.10, freq: 0.0018, speed: 0.00022, phase: 0.0, thickness: 0.22, alpha: 0.13 },
+  { yp: 0.30, amp: 0.08, freq: 0.0024, speed: 0.00017, phase: 1.3, thickness: 0.18, alpha: 0.10 },
+  { yp: 0.44, amp: 0.12, freq: 0.0014, speed: 0.00028, phase: 2.7, thickness: 0.25, alpha: 0.09 },
+  { yp: 0.58, amp: 0.09, freq: 0.0020, speed: 0.00019, phase: 4.1, thickness: 0.20, alpha: 0.08 },
+  { yp: 0.70, amp: 0.07, freq: 0.0028, speed: 0.00024, phase: 5.5, thickness: 0.16, alpha: 0.07 },
+  { yp: 0.82, amp: 0.06, freq: 0.0016, speed: 0.00015, phase: 3.3, thickness: 0.14, alpha: 0.06 },
+];
+
+const SHIMMER_LINES = Array.from({ length: 60 }, () => ({
+  x:      Math.random(),
+  yStart: Math.random() * 0.6,
+  length: 0.08 + Math.random() * 0.18,
+  speed:  0.00008 + Math.random() * 0.00012,
+  phase:  Math.random() * Math.PI * 2,
+  alpha:  0.03 + Math.random() * 0.06,
+  width:  0.4 + Math.random() * 1.2,
+}));
+
 export default function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef  = useRef<HTMLCanvasElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
 
-  const [displayed, setDisplayed] = useState("");
+  const [displayed,  setDisplayed]  = useState("");
   const [typingDone, setTypingDone] = useState(false);
-  const [showPill, setShowPill] = useState(false);
-  const [showSub, setShowSub] = useState(false);
-  const [showCTAs, setShowCTAs] = useState(false);
+  const [showPill,   setShowPill]   = useState(false);
+  const [showSub,    setShowSub]    = useState(false);
+  const [showCTAs,   setShowCTAs]   = useState(false);
+  const [mouse,      setMouse]      = useState({ x: -9999, y: -9999 });
 
-  // Mouse spotlight state
-  const [mouse, setMouse] = useState({ x: -9999, y: -9999 });
-
-  /* MOUSE TRACKING */
+  /* ── MOUSE SPOTLIGHT ── */
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
-
-    const handleMove = (e: MouseEvent) => {
+    const onMove = (e: MouseEvent) => {
       const rect = section.getBoundingClientRect();
-      setMouse({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
+      setMouse({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     };
-
-    const handleLeave = () => {
-      setMouse({ x: -9999, y: -9999 });
-    };
-
-    section.addEventListener("mousemove", handleMove);
-    section.addEventListener("mouseleave", handleLeave);
+    const onLeave = () => setMouse({ x: -9999, y: -9999 });
+    section.addEventListener("mousemove", onMove);
+    section.addEventListener("mouseleave", onLeave);
     return () => {
-      section.removeEventListener("mousemove", handleMove);
-      section.removeEventListener("mouseleave", handleLeave);
+      section.removeEventListener("mousemove", onMove);
+      section.removeEventListener("mouseleave", onLeave);
     };
   }, []);
 
-  /* TYPEWRITER */
+  /* ── TYPEWRITER ── */
   useEffect(() => {
     let idx = 0;
     const tick = () => {
@@ -68,29 +77,21 @@ export default function Hero() {
         setTimeout(tick, SPEED_MS + jitter);
       } else {
         setTimeout(() => setTypingDone(true), 100);
-        setTimeout(() => setShowPill(true), 200);
-        setTimeout(() => setShowSub(true), 500);
-        setTimeout(() => setShowCTAs(true), 800);
+        setTimeout(() => setShowPill(true),   200);
+        setTimeout(() => setShowSub(true),    500);
+        setTimeout(() => setShowCTAs(true),   800);
       }
     };
     const start = setTimeout(tick, 300);
     return () => clearTimeout(start);
   }, []);
 
-  /* SPLIT TEXT */
+  /* ── SPLIT HEADLINE ── */
   const splitIndex = displayed.toLowerCase().indexOf("every");
+  const line1 = splitIndex === -1 ? displayed : displayed.slice(0, splitIndex).trim();
+  const line2 = splitIndex === -1 ? ""        : displayed.slice(splitIndex);
 
-  const line1 =
-    splitIndex === -1
-      ? displayed
-      : displayed.slice(0, splitIndex).trim();
-
-  const line2 =
-    splitIndex === -1
-      ? ""
-      : displayed.slice(splitIndex);
-
-  /* LIQUID GRADIENT CANVAS */
+  /* ── CANVAS: BLACK/GRAY AURORA ── */
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -101,43 +102,77 @@ export default function Hero() {
     let W: number, H: number;
 
     const resize = () => {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
     };
     resize();
     window.addEventListener("resize", resize);
 
-    const blobs = [
-      { xPhase: 0.0,  yPhase: 0.0,  xAmp: 0.28, yAmp: 0.22, xFreq: 0.00018, yFreq: 0.00013, r: 0.48, opacity: 0.55 },
-      { xPhase: 2.1,  yPhase: 1.4,  xAmp: 0.22, yAmp: 0.30, xFreq: 0.00014, yFreq: 0.00020, r: 0.40, opacity: 0.45 },
-      { xPhase: 4.2,  yPhase: 3.1,  xAmp: 0.32, yAmp: 0.18, xFreq: 0.00022, yFreq: 0.00016, r: 0.38, opacity: 0.40 },
-      { xPhase: 1.0,  yPhase: 5.0,  xAmp: 0.18, yAmp: 0.26, xFreq: 0.00016, yFreq: 0.00012, r: 0.35, opacity: 0.35 },
-    ];
-
-    const draw = (t: number) => {
+    const draw = (ts: number) => {
       ctx.clearRect(0, 0, W, H);
 
-      blobs.forEach((b) => {
-        const cx = W * (0.5 + Math.sin(t * b.xFreq + b.xPhase) * b.xAmp);
-        const cy = H * (0.5 + Math.cos(t * b.yFreq + b.yPhase) * b.yAmp);
-        const radius = Math.min(W, H) * b.r;
+      /* aurora bands */
+      BANDS.forEach((b, bi) => {
+        const points: { x: number; y: number }[] = [];
+        const step = 6;
+        for (let x = -step; x <= W + step; x += step) {
+          const nx    = x / W;
+          const wave1 = Math.sin(nx * b.freq * W + ts * b.speed + b.phase) * b.amp;
+          const wave2 = Math.sin(nx * b.freq * W * 1.6 + ts * b.speed * 0.7 + b.phase + 1.2) * b.amp * 0.4;
+          const wave3 = Math.cos(nx * b.freq * W * 0.8 + ts * b.speed * 1.3 + b.phase + 2.4) * b.amp * 0.25;
+          points.push({ x, y: H * (b.yp + wave1 + wave2 + wave3) });
+        }
 
-        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-        grad.addColorStop(0,   `rgba(255,255,255,${b.opacity})`);
-        grad.addColorStop(0.4, `rgba(255,255,255,${b.opacity * 0.5})`);
-        grad.addColorStop(1,   `rgba(255,255,255,0)`);
+        const thickness = H * b.thickness;
 
+        for (let t2 = 0; t2 <= 1; t2 += 0.015) {
+          const easedAlpha = Math.sin(t2 * Math.PI) * b.alpha;
+          if (easedAlpha < 0.002) continue;
+          ctx.beginPath();
+          points.forEach((p, i) => {
+            const py = p.y + (t2 - 0.5) * thickness;
+            i === 0 ? ctx.moveTo(p.x, py) : ctx.lineTo(p.x, py);
+          });
+          const grayVal = Math.floor(30 + t2 * 140);
+          ctx.strokeStyle = `rgba(${grayVal},${grayVal},${grayVal},${easedAlpha})`;
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+        }
+
+        /* shimmer spine */
         ctx.beginPath();
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-        ctx.fillStyle = grad;
-        ctx.fill();
+        points.forEach((p, i) => (i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
+        const shimmerAlpha = (Math.sin(ts * 0.0006 + bi * 1.1) * 0.5 + 0.5) * b.alpha * 1.8;
+        ctx.strokeStyle = `rgba(80,80,80,${shimmerAlpha})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      /* vertical shimmer streaks */
+      SHIMMER_LINES.forEach((sl) => {
+        const x     = sl.x * W;
+        const pulse = Math.sin(ts * sl.speed * 1000 + sl.phase);
+        const alpha = sl.alpha * (0.4 + pulse * 0.6);
+        if (alpha < 0.005) return;
+        const yTop = H * sl.yStart + Math.sin(ts * sl.speed * 800 + sl.phase) * H * 0.04;
+        const yBot = yTop + sl.length * H;
+        const g    = ctx.createLinearGradient(x, yTop, x, yBot);
+        g.addColorStop(0,   `rgba(0,0,0,0)`);
+        g.addColorStop(0.3, `rgba(60,60,60,${alpha})`);
+        g.addColorStop(0.7, `rgba(40,40,40,${alpha * 0.7})`);
+        g.addColorStop(1,   `rgba(0,0,0,0)`);
+        ctx.beginPath();
+        ctx.moveTo(x, yTop);
+        ctx.lineTo(x, yBot);
+        ctx.strokeStyle = g;
+        ctx.lineWidth = sl.width;
+        ctx.stroke();
       });
 
       animId = requestAnimationFrame(draw);
     };
 
     animId = requestAnimationFrame(draw);
-
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
@@ -147,40 +182,26 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-[#f8f7f4] overflow-hidden px-4 pt-32 pb-24 flex flex-col justify-center"
+      className="relative w-full min-h-screen bg-white overflow-hidden px-4 pt-32 pb-24 flex flex-col justify-center"
     >
-
-      {/* ── MOUSE SPOTLIGHT ── */}
-      <div
-        className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(600px circle at ${mouse.x}px ${mouse.y}px,
-            rgba(0,0,0,0.045) 0%,
-            rgba(0,0,0,0.02)  35%,
-            transparent       70%)`,
-        }}
-      />
-
-      {/* Dot Grid Background */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none z-0"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern id="dots" x="30" y="30" width="30" height="30" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="1.5" fill="rgba(0,0,0,0.08)" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#dots)" />
-      </svg>
-
-      {/* Liquid Gradient Canvas */}
+      {/* Aurora canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none z-0"
       />
 
-      {/* CONTENT */}
+      {/* Mouse spotlight */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(500px circle at ${mouse.x}px ${mouse.y}px,
+            rgba(0,0,0,0.04) 0%,
+            rgba(0,0,0,0.015) 40%,
+            transparent 70%)`,
+        }}
+      />
+
+      {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto">
 
         {/* Pill */}
@@ -199,9 +220,8 @@ export default function Hero() {
           )}
         </AnimatePresence>
 
-        {/* HEADLINE */}
+        {/* Headline */}
         <h1 className="font-serif text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] text-black">
-
           <motion.span
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -209,7 +229,6 @@ export default function Hero() {
           >
             {line1}
           </motion.span>
-
           <motion.span
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -218,7 +237,6 @@ export default function Hero() {
           >
             {line2}
           </motion.span>
-
           <BlinkingCursor visible={!typingDone} />
         </h1>
 
@@ -254,71 +272,57 @@ export default function Hero() {
           )}
         </AnimatePresence>
 
-        {/* TRUST BADGES */}
+        {/* Trust badges */}
         <AnimatePresence>
           {showCTAs && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="mt-12"
+              className="mt-10"
             >
-              <AnimatePresence>
-                {showCTAs && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="mt-6"
-                  >
-                    <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+              <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
 
-                      {/* Fast Setup */}
-                      <motion.div
-                        whileHover={{ scale: 1.05, y: -4 }}
-                        className="flex items-center gap-3 px-5 py-3 rounded-full bg-white/70 border border-black/10 backdrop-blur-md hover:border-black/20 transition shadow-sm"
-                      >
-                        <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
-                        </svg>
-                        <span className="text-sm font-medium text-black">Fast Setup</span>
-                      </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -4 }}
+                  className="flex items-center gap-3 px-5 py-3 rounded-full bg-white/70 border border-black/10 backdrop-blur-md hover:border-black/20 transition shadow-sm"
+                >
+                  <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+                  </svg>
+                  <span className="text-sm font-medium text-black">Fast Setup</span>
+                </motion.div>
 
-                      {/* Security */}
-                      <motion.div
-                        whileHover={{ scale: 1.05, y: -4 }}
-                        transition={{ delay: 0.1 }}
-                        className="flex items-center gap-3 px-5 py-3 rounded-full bg-white/70 border border-black/10 backdrop-blur-md hover:border-black/20 transition shadow-sm"
-                      >
-                        <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M12 2l7 4v6c0 5-3.8 9.7-7 10-3.2-.3-7-5-7-10V6l7-4z" />
-                        </svg>
-                        <span className="text-sm font-medium text-black">Enterprise Security</span>
-                      </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -4 }}
+                  transition={{ delay: 0.1 }}
+                  className="flex items-center gap-3 px-5 py-3 rounded-full bg-white/70 border border-black/10 backdrop-blur-md hover:border-black/20 transition shadow-sm"
+                >
+                  <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 2l7 4v6c0 5-3.8 9.7-7 10-3.2-.3-7-5-7-10V6l7-4z" />
+                  </svg>
+                  <span className="text-sm font-medium text-black">Enterprise Security</span>
+                </motion.div>
 
-                      {/* Analytics */}
-                      <motion.div
-                        whileHover={{ scale: 1.05, y: -4 }}
-                        transition={{ delay: 0.2 }}
-                        className="flex items-center gap-3 px-5 py-3 rounded-full bg-white/70 border border-black/10 backdrop-blur-md hover:border-black/20 transition shadow-sm"
-                      >
-                        <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M3 3v18h18M7 13l3-3 4 4 5-5" />
-                        </svg>
-                        <span className="text-sm font-medium text-black">Real-Time Analytics</span>
-                      </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -4 }}
+                  transition={{ delay: 0.2 }}
+                  className="flex items-center gap-3 px-5 py-3 rounded-full bg-white/70 border border-black/10 backdrop-blur-md hover:border-black/20 transition shadow-sm"
+                >
+                  <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 3v18h18M7 13l3-3 4 4 5-5" />
+                  </svg>
+                  <span className="text-sm font-medium text-black">Real-Time Analytics</span>
+                </motion.div>
 
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
 
       </div>
 
-      {/* DASHBOARD IMAGE */}
+      {/* Dashboard image */}
       <AnimatePresence>
         {showCTAs && (
           <motion.div
@@ -332,18 +336,10 @@ export default function Hero() {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="relative w-full max-w-7xl px-4"
             >
-              {/* ── BLACK GRADIENT GLOW (replaces coloured glows) ── */}
-              {/* Outer ambient shadow */}
               <div className="absolute inset-x-8 -bottom-6 top-10 bg-black/30 blur-3xl rounded-3xl -z-10" />
-              {/* Tight drop-shadow directly under the card */}
               <div className="absolute inset-x-16 -bottom-2 top-16 bg-black/20 blur-2xl rounded-3xl -z-10" />
-
-              {/* Glass morphism container */}
               <div className="relative backdrop-blur-sm bg-white/10 rounded-3xl p-1 border border-white/20 shadow-2xl">
-                {/* Inner highlight */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-3xl pointer-events-none" />
-
-                {/* Dashboard image */}
                 <motion.img
                   src="/dashboard.png"
                   alt="Dashboard Preview"
@@ -353,9 +349,7 @@ export default function Hero() {
                   transition={{ duration: 0.8 }}
                 />
               </div>
-
-              {/* Bottom page fade */}
-              <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#f8f7f4] to-transparent rounded-b-3xl" />
+              <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white to-transparent rounded-b-3xl" />
             </motion.div>
           </motion.div>
         )}
