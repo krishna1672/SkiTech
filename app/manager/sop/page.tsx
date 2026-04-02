@@ -53,12 +53,12 @@ function SOPModal({ sop, onClose, onSave }: {
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
-        className="bg-white/70 backdrop-blur rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden"
+        className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border border-black/10"
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-gradient-to-r from-[#0B1628] to-[#1E293B]">
-          <h2 className="text-white" style={{ fontWeight: 700 }}>{sop ? "Edit SOP" : "Create New SOP"}</h2>
-          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-neutral-300 hover:bg-white/20 transition-colors">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-white/80 backdrop-blur border-b border-black/10">
+          <h2 className="text-black" style={{ fontWeight: 700 }}>{sop ? "Edit SOP" : "Create New SOP"}</h2>
+          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -165,24 +165,24 @@ function ViewSOPModal({ sop, onClose, onEdit }: { sop: SOP; onClose: () => void;
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
-        className="bg-white/70 backdrop-blur rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden max-h-[85vh] flex flex-col"
+        className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border border-black/10 max-h-[85vh] flex flex-col"
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-gradient-to-r from-[#0B1628] to-[#1E293B]">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-white/80 backdrop-blur border-b border-black/10">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-              <FileText className="w-4 h-4 text-white" />
+            <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
+              <FileText className="w-4 h-4 text-slate-600" />
             </div>
             <div>
-              <p className="text-white text-sm" style={{ fontWeight: 700 }}>{sop.version}</p>
+              <p className="text-black text-sm" style={{ fontWeight: 700 }}>{sop.version}</p>
               <p className="text-neutral-400 text-xs">{sop.dept}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={onEdit} className="px-3 py-1.5 rounded-lg bg-white/10 text-white text-xs hover:bg-white/20 transition-colors flex items-center gap-1.5" style={{ fontWeight: 600 }}>
+            <button onClick={onEdit} className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs hover:bg-slate-200 transition-colors flex items-center gap-1.5" style={{ fontWeight: 600 }}>
               <Edit3 className="w-3 h-3" /> Edit
             </button>
-            <button onClick={onClose} className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-neutral-300 hover:bg-white/20 transition-colors">
+            <button onClick={onClose} className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
               <X className="w-4 h-4" />
             </button>
           </div>

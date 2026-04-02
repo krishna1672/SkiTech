@@ -114,7 +114,7 @@ export default function ManagersPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white/70 backdrop-blur rounded-2xl p-8 w-full max-w-lg shadow-2xl"
+            className="bg-white rounded-2xl p-8 w-full max-w-lg shadow-2xl border border-black/10"
           >
             <h2 className="text-black mb-6" style={{ fontWeight: 800, fontSize: "1.2rem" }}>Add Manager</h2>
             <div className="space-y-4">

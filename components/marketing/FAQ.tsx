@@ -154,7 +154,7 @@ export function FAQ() {
             initial={{ opacity: 0, y: 14 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: "easeOut" }}
-            className="text-black/35 text-[10.5px] uppercase tracking-[0.22em] mb-4"
+            className="text-black/60 text-[10.5px] uppercase tracking-[0.22em] mb-4"
             style={{ fontWeight: 700, fontFamily: font }}
           >
             FAQ

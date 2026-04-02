@@ -65,7 +65,7 @@ export function Testimonials() {
             initial={{ opacity: 0, y: 14 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: "easeOut" }}
-            className="text-white/35 text-[10.5px] uppercase tracking-[0.22em] mb-4"
+            className="text-white/55 text-[10.5px] uppercase tracking-[0.22em] mb-4"
             style={{ fontWeight: 700, fontFamily: font }}
           >
             Testimonials
@@ -92,7 +92,7 @@ export function Testimonials() {
             initial={{ opacity: 0, y: 14 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.2, ease: "easeOut" }}
-            className="text-white/30 mt-5 max-w-sm mx-auto leading-relaxed"
+            className="text-white/55 mt-5 max-w-sm mx-auto leading-relaxed"
             style={{ fontSize: "0.88rem", fontFamily: font }}
           >
             Hear from the operations teams already running on Skitec.
@@ -102,7 +102,7 @@ export function Testimonials() {
             initial={{ scaleX: 0, opacity: 0 }}
             animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
             transition={{ duration: 0.9, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-7 mx-auto h-px w-14 bg-white/30 origin-center"
+            className="mt-7 mx-auto h-px w-14 bg-white/50 origin-center"
           />
         </div>
 
@@ -178,7 +178,7 @@ export function Testimonials() {
                     {t.name}
                   </p>
                   <p
-                    className="text-white/35 text-[11px] leading-tight"
+                    className="text-white/55 text-[11px] leading-tight"
                     style={{ fontFamily: font, fontWeight: 400 }}
                   >
                     {t.role}

@@ -82,7 +82,7 @@ export function WhySkitec() {
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-black/40 text-[11px] uppercase tracking-[0.2em] mb-4"
+              className="text-black/60 text-[11px] uppercase tracking-[0.2em] mb-4"
               style={{ fontWeight: 700, fontFamily: font }}
             >
               Why Skitec
@@ -109,7 +109,7 @@ export function WhySkitec() {
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: 0.16 }}
-              className="text-black/45 mt-5 max-w-md mx-auto leading-relaxed"
+              className="text-black/65 mt-5 max-w-md mx-auto leading-relaxed"
               style={{ fontSize: "0.9rem", fontFamily: font }}
             >
               Everything your property team needs — from SOPs to stock — under one roof.
@@ -182,7 +182,7 @@ export function WhySkitec() {
                         </h3>
                       </div>
                       <p
-                        className="text-black/55 leading-[1.85] mb-8"
+                        className="text-black/75 leading-[1.85] mb-8"
                         style={{ fontSize: "0.9rem", fontFamily: font }}
                       >
                         {b.desc}
@@ -190,12 +190,12 @@ export function WhySkitec() {
                     </div>
                     <div className="flex items-center justify-between pt-5 border-t border-black/[0.07]">
                       <span
-                        className="text-[11px] uppercase tracking-widest text-black/70"
+                        className="text-[11px] uppercase tracking-widest text-black/85"
                         style={{ fontFamily: font, fontWeight: 700 }}
                       >
                         {b.stat}
                       </span>
-                      <div className="flex items-center gap-1.5 text-black/25 group-hover:text-black transition-colors duration-300">
+                      <div className="flex items-center gap-1.5 text-black/50 group-hover:text-black transition-colors duration-300">
                         <span className="text-[12px]" style={{ fontFamily: font, fontWeight: 700 }}>
                           Learn more
                         </span>
@@ -233,7 +233,7 @@ export function WhySkitec() {
               initial={{ opacity: 0, y: 16 }}
               animate={stepsInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="text-white/35 text-[11px] uppercase tracking-[0.2em] mb-4"
+              className="text-white/55 text-[11px] uppercase tracking-[0.2em] mb-4"
               style={{ fontWeight: 700, fontFamily: font }}
             >
               How It Works
@@ -260,7 +260,7 @@ export function WhySkitec() {
               initial={{ opacity: 0, y: 16 }}
               animate={stepsInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: 0.16 }}
-              className="text-white/30 mt-5 max-w-md mx-auto leading-relaxed"
+              className="text-white/55 mt-5 max-w-md mx-auto leading-relaxed"
               style={{ fontSize: "0.9rem", fontFamily: font }}
             >
               No long onboarding. No IT team required. Set up, invite your team, and go.
@@ -295,7 +295,7 @@ export function WhySkitec() {
                 {/* Number badge */}
                 <div className="w-[68px] h-[68px] mx-auto rounded-2xl border border-white/10 bg-white/[0.04] flex items-center justify-center mb-6 transition-all duration-400 group-hover:bg-white group-hover:border-white group-hover:scale-105">
                   <span
-                    className="text-white/60 transition-all duration-400 group-hover:text-black"
+                    className="text-white/75 transition-all duration-400 group-hover:text-black"
                     style={{ fontWeight: 800, fontSize: "1.05rem", fontFamily: font }}
                   >
                     {step.num}
@@ -309,7 +309,7 @@ export function WhySkitec() {
                   {step.title}
                 </h3>
                 <p
-                  className="text-white/35 leading-relaxed"
+                  className="text-white/55 leading-relaxed"
                   style={{ fontSize: "0.855rem", fontFamily: font }}
                 >
                   {step.desc}

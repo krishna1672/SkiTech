@@ -179,7 +179,7 @@ function FeatureCard({ mod, index }: { mod: (typeof modules)[0]; index: number }
             {mod.stat}
           </span>
 
-          <div className="flex items-center gap-1.5 text-black/20 group-hover:text-black transition-colors duration-500">
+          <div className="flex items-center gap-1.5 text-black/50 group-hover:text-black transition-colors duration-500">
             <span className="text-[11.5px]" style={{ fontFamily: font, fontWeight: 700 }}>
               Explore
             </span>
@@ -210,7 +210,7 @@ export function Features() {
             initial={{ opacity: 0, y: 14 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: "easeOut" }}
-            className="text-black/35 text-[10.5px] uppercase tracking-[0.22em] mb-4"
+            className="text-black/60 text-[10.5px] uppercase tracking-[0.22em] mb-4"
             style={{ fontWeight: 700, fontFamily: font }}
           >
             Core Modules

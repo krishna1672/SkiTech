@@ -54,7 +54,7 @@ export function CTA() {
           initial={{ opacity: 0, y: 14 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: "easeOut" }}
-          className="text-black/35 text-[10.5px] uppercase tracking-[0.22em] mb-6"
+          className="text-black/60 text-[10.5px] uppercase tracking-[0.22em] mb-6"
           style={{ fontWeight: 700, fontFamily: font }}
         >
           Get Started
@@ -126,7 +126,7 @@ export function CTA() {
           >
             <Link
               href="/pricing"
-              className="group inline-flex items-center gap-1.5 text-black/45 hover:text-black px-5 py-4 rounded-2xl border border-transparent hover:border-black/10 transition-all duration-300"
+              className="group inline-flex items-center gap-1.5 text-black/70 hover:text-black px-5 py-4 rounded-2xl border border-transparent hover:border-black/10 transition-all duration-300"
               style={{ fontFamily: font, fontWeight: 700, fontSize: "0.88rem" }}
             >
               View Pricing
@@ -140,7 +140,7 @@ export function CTA() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-8 text-black/25 text-[11px] uppercase tracking-[0.16em]"
+          className="mt-8 text-black/50 text-[11px] uppercase tracking-[0.16em]"
           style={{ fontFamily: font, fontWeight: 700 }}
         >
           No credit card required · 14-day free trial · Cancel anytime

@@ -64,7 +64,7 @@ function AddItemModal({ onClose, onAdd }: { onClose: () => void; onAdd: (item: I
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
         onClick={e => e.stopPropagation()}
       >
-        <div className="bg-white/70 backdrop-blur rounded-2xl shadow-2xl w-full max-w-md" onClick={e => e.stopPropagation()}>
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md border border-black/10" onClick={e => e.stopPropagation()}>
           <div className="flex items-center justify-between px-6 py-5 border-b border-black/10">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-black/[0.04] flex items-center justify-center">
@@ -175,7 +175,7 @@ function EditStockModal({ item, onClose, onSave }: { item: InventoryItem; onClos
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
         onClick={e => e.stopPropagation()}
       >
-        <div className="bg-white/70 backdrop-blur rounded-2xl shadow-2xl w-full max-w-sm" onClick={e => e.stopPropagation()}>
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm border border-black/10" onClick={e => e.stopPropagation()}>
           <div className="flex items-center justify-between px-6 py-5 border-b border-black/10">
             <div>
               <h2 className="text-black" style={{ fontWeight: 800, fontSize: "1rem" }}>Edit Stock</h2>
@@ -262,7 +262,7 @@ function RejectModal({ req, onClose, onReject }: { req: RestockRequest; onClose:
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
         onClick={e => e.stopPropagation()}
       >
-        <div className="bg-white/70 backdrop-blur rounded-2xl shadow-2xl w-full max-w-sm" onClick={e => e.stopPropagation()}>
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm border border-black/10" onClick={e => e.stopPropagation()}>
           <div className="flex items-center justify-between px-6 py-5 border-b border-black/10">
             <h2 className="text-black" style={{ fontWeight: 800, fontSize: "1rem" }}>Reject Restock Request</h2>
             <button onClick={onClose} className="p-2 text-neutral-400 hover:text-neutral-600 hover:bg-black/[0.04] rounded-lg transition-colors"><X className="w-5 h-5" /></button>

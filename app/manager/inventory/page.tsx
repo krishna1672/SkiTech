@@ -47,7 +47,7 @@ function RequestRestockModal({
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           onClick={e => e.stopPropagation()}
         >
-          <div className="bg-white/70 backdrop-blur rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center" onClick={e => e.stopPropagation()}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center border border-black/10" onClick={e => e.stopPropagation()}>
             <motion.div
               initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
               className="w-16 h-16 rounded-full bg-black/[0.04] flex items-center justify-center mx-auto mb-4"
@@ -74,7 +74,7 @@ function RequestRestockModal({
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
         onClick={e => e.stopPropagation()}
       >
-        <div className="bg-white/70 backdrop-blur rounded-2xl shadow-2xl w-full max-w-sm" onClick={e => e.stopPropagation()}>
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm border border-black/10" onClick={e => e.stopPropagation()}>
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-black/10">
             <div className="flex items-center gap-3">

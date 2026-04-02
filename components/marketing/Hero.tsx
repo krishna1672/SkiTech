@@ -233,7 +233,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="block italic text-neutral-500 font-light"
+            className="block italic text-neutral-600 font-light"
           >
             {line2}
           </motion.span>
@@ -246,7 +246,7 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 text-neutral-600 max-w-xl leading-relaxed"
+              className="mt-6 text-neutral-700 max-w-xl leading-relaxed"
             >
               Centralise property management, workforce, SOPs, finance, and
               reporting — in one elegant, automated workspace.

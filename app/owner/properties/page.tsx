@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Plus, Search, Building2, Users, TrendingUp, MapPin, MoreHorizontal } from "lucide-react";
 
-const properties = [
+const propertiesInit = [
   {
     id: 1,
     name: "Grand Horizon property",
@@ -50,16 +50,18 @@ const properties = [
 export default function PropertiesPage() {
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
+  const [propertiesList, setPropertiesList] = useState(propertiesInit);
+  const [formData, setFormData] = useState({ name: "", location: "", type: "", rooms: "" });
   const router = useRouter();
 
-  const filtered = properties.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+  const filtered = propertiesList.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="p-6 lg:p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-black" style={{ fontSize: "1.4rem", fontWeight: 800 }}>Properties</h1>
-          <p className="text-neutral-500 text-sm mt-0.5">{properties.length} properties in your portfolio</p>
+          <p className="text-neutral-500 text-sm mt-0.5">{propertiesList.length} properties in your portfolio</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.03 }}
@@ -169,38 +171,80 @@ export default function PropertiesPage() {
 
       {/* Add Modal */}
       {showAdd && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowAdd(false)}>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white/70 backdrop-blur rounded-2xl p-8 w-full max-w-lg shadow-2xl"
+            className="bg-white rounded-2xl p-8 w-full max-w-lg shadow-2xl border border-black/10"
+            onClick={e => e.stopPropagation()}
           >
             <h2 className="text-black mb-6" style={{ fontWeight: 800, fontSize: "1.2rem" }}>Add New Property</h2>
             <div className="space-y-4">
-              {[
-                { label: "Property Name", placeholder: "Grand Horizon property" },
-                { label: "Location", placeholder: "Dubai Marina, UAE" },
-                { label: "Property Type", placeholder: "5-Star property, Boutique, etc." },
-                { label: "Number of Rooms", placeholder: "142" },
-              ].map((f, i) => (
-                <div key={i}>
-                  <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>{f.label}</label>
-                  <input
-                    className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-black/20 transition-colors"
-                    placeholder={f.placeholder}
-                  />
-                </div>
-              ))}
+              <div>
+                <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>Property Name</label>
+                <input
+                  value={formData.name}
+                  onChange={e => setFormData(f => ({ ...f, name: e.target.value }))}
+                  className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 transition-colors"
+                  placeholder="Grand Horizon property"
+                />
+              </div>
+              <div>
+                <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>Location</label>
+                <input
+                  value={formData.location}
+                  onChange={e => setFormData(f => ({ ...f, location: e.target.value }))}
+                  className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 transition-colors"
+                  placeholder="Dubai Marina, UAE"
+                />
+              </div>
+              <div>
+                <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>Property Type</label>
+                <input
+                  value={formData.type}
+                  onChange={e => setFormData(f => ({ ...f, type: e.target.value }))}
+                  className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 transition-colors"
+                  placeholder="5-Star property, Boutique, etc."
+                />
+              </div>
+              <div>
+                <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>Number of Rooms</label>
+                <input
+                  value={formData.rooms}
+                  onChange={e => setFormData(f => ({ ...f, rooms: e.target.value }))}
+                  type="number"
+                  className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 transition-colors"
+                  placeholder="142"
+                />
+              </div>
             </div>
             <div className="flex gap-3 mt-6">
               <button
-                onClick={() => setShowAdd(false)}
+                onClick={() => { setShowAdd(false); setFormData({ name: "", location: "", type: "", rooms: "" }); }}
                 className="flex-1 py-3 rounded-xl border border-black/10 text-neutral-600 text-sm hover:bg-white/50 transition-colors"
               >
                 Cancel
               </button>
               <button
-                onClick={() => setShowAdd(false)}
+                onClick={() => {
+                  if (!formData.name.trim()) return;
+                  const newProperty = {
+                    id: Date.now(),
+                    name: formData.name,
+                    location: formData.location,
+                    type: formData.type || "Standard property",
+                    rooms: parseInt(formData.rooms) || 0,
+                    staff: 0,
+                    occ: 0,
+                    revenue: "$0",
+                    manager: "Unassigned",
+                    status: "active",
+                    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+                  };
+                  setPropertiesList(prev => [newProperty, ...prev]);
+                  setFormData({ name: "", location: "", type: "", rooms: "" });
+                  setShowAdd(false);
+                }}
                 className="flex-1 py-3 rounded-xl bg-black text-white text-sm shadow-md"
                 style={{ fontWeight: 600 }}
               >

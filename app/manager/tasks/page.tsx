@@ -115,19 +115,19 @@ function NewTaskPanel({ onClose, onSubmit }: { onClose: () => void; onSubmit: (t
         className="fixed right-0 top-0 bottom-0 w-full max-w-[560px] bg-white z-50 flex flex-col shadow-2xl"
       >
         {/* ── Header ── */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-gradient-to-r from-[#0B1628] to-[#1E293B]">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-white/80 backdrop-blur">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-black to-neutral-700 flex items-center justify-center shadow-md">
               <Plus className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-white" style={{ fontWeight: 700, fontSize: "1rem" }}>New Task</h2>
+              <h2 className="text-black" style={{ fontWeight: 700, fontSize: "1rem" }}>New Task</h2>
               <p className="text-neutral-400 text-xs">Assign to staff at Skyline Suites</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-neutral-300 hover:bg-white/20 hover:text-white transition-colors"
+            className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>

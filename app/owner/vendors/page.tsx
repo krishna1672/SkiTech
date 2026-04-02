@@ -80,12 +80,12 @@ function VendorModal({ vendor, onClose, onSave }: {
         initial={{ opacity: 0, scale: 0.96, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96 }}
-        className="bg-white/70 backdrop-blur rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden"
+        className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border border-black/10"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-gradient-to-r from-[#0B1628] to-[#1E293B]">
-          <h2 className="text-white" style={{ fontWeight: 700, fontSize: "1rem" }}>{vendor ? "Edit Vendor" : "Add New Vendor"}</h2>
-          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-neutral-300 hover:bg-white/20 transition-colors">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-white/80 backdrop-blur border-b border-black/10">
+          <h2 className="text-black" style={{ fontWeight: 700, fontSize: "1rem" }}>{vendor ? "Edit Vendor" : "Add New Vendor"}</h2>
+          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -194,14 +194,14 @@ function AssociationPanel({ vendor, onClose }: { vendor: Vendor; onClose: () => 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className="bg-white/70 backdrop-blur rounded-2xl w-full max-w-md shadow-2xl overflow-hidden"
+        className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border border-black/10"
       >
-        <div className="px-6 py-5 border-b border-black/10 bg-gradient-to-r from-[#0B1628] to-[#1E293B] flex items-center justify-between">
+        <div className="px-6 py-5 border-b border-black/10 bg-white/80 backdrop-blur border-b border-black/10 flex items-center justify-between">
           <div>
-            <h2 className="text-white" style={{ fontWeight: 700 }}>Property Associations</h2>
+            <h2 className="text-black" style={{ fontWeight: 700 }}>Property Associations</h2>
             <p className="text-neutral-400 text-xs mt-0.5">{vendor.name}</p>
           </div>
-          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-neutral-300 hover:bg-white/20 transition-colors">
+          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
             <X className="w-4 h-4" />
           </button>
         </div>

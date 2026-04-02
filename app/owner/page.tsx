@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Building2, Users, TrendingUp, ClipboardList, ArrowUpRight, CheckCircle2, AlertCircle, Clock, TrendingDown } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const stats = [
   { icon: Building2, label: "Total Properties", value: "3", change: "+1 this month", positive: true, color: "#3B82F6", trend: "up" },
@@ -37,6 +39,10 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export default function OwnerDashboard() {
+  const router = useRouter();
+  const [showAdd, setShowAdd] = useState(false);
+  const [formData, setFormData] = useState({ name: "", location: "", type: "", rooms: "" });
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -48,7 +54,7 @@ export default function OwnerDashboard() {
           <button className="px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all duration-200 shadow-sm">
             Download Report
           </button>
-          <button className="px-4 py-2.5 text-sm font-medium text-white bg-slate-950 rounded-xl hover:bg-slate-800 transition-all duration-200 shadow-lg shadow-slate-950/20">
+          <button onClick={() => setShowAdd(true)} className="px-4 py-2.5 text-sm font-medium text-white bg-slate-950 rounded-xl hover:bg-slate-800 transition-all duration-200 shadow-lg shadow-slate-950/20">
             Add Property
           </button>
         </div>
@@ -173,11 +179,82 @@ export default function OwnerDashboard() {
                 </div>
              ))}
            </div>
-           <button className="w-full mt-6 py-2.5 text-sm font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors border border-slate-200/60">
+<button className="w-full mt-6 py-2.5 text-sm font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors border border-slate-200/60">
                View All Alerts
-           </button>
+            </button>
         </div>
       </div>
+
+      {showAdd && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowAdd(false)}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-2xl p-8 w-full max-w-lg shadow-2xl border border-black/10"
+            onClick={e => e.stopPropagation()}
+          >
+            <h2 className="text-black mb-6" style={{ fontWeight: 800, fontSize: "1.2rem" }}>Add New Property</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>Property Name</label>
+                <input
+                  value={formData.name}
+                  onChange={e => setFormData(f => ({ ...f, name: e.target.value }))}
+                  className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 transition-colors"
+                  placeholder="Grand Horizon Hotel"
+                />
+              </div>
+              <div>
+                <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>Location</label>
+                <input
+                  value={formData.location}
+                  onChange={e => setFormData(f => ({ ...f, location: e.target.value }))}
+                  className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 transition-colors"
+                  placeholder="Dubai Marina, UAE"
+                />
+              </div>
+              <div>
+                <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>Property Type</label>
+                <input
+                  value={formData.type}
+                  onChange={e => setFormData(f => ({ ...f, type: e.target.value }))}
+                  className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 transition-colors"
+                  placeholder="5-Star Hotel, Boutique, etc."
+                />
+              </div>
+              <div>
+                <label className="block text-neutral-700 text-sm mb-1.5" style={{ fontWeight: 500 }}>Number of Rooms</label>
+                <input
+                  value={formData.rooms}
+                  onChange={e => setFormData(f => ({ ...f, rooms: e.target.value }))}
+                  type="number"
+                  className="w-full bg-black/[0.03] border border-black/10 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black/20 transition-colors"
+                  placeholder="142"
+                />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => { setShowAdd(false); setFormData({ name: "", location: "", type: "", rooms: "" }); }}
+                className="flex-1 py-3 rounded-xl border border-black/10 text-neutral-600 text-sm hover:bg-white/50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  if (!formData.name.trim()) return;
+                  setShowAdd(false);
+                  setFormData({ name: "", location: "", type: "", rooms: "" });
+                }}
+                className="flex-1 py-3 rounded-xl bg-black text-white text-sm shadow-md"
+                style={{ fontWeight: 600 }}
+              >
+                Add Property
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

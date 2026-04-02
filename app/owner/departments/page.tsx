@@ -60,10 +60,10 @@ function DeptFormModal({ dept, onClose, onSave }: {
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
-        className="bg-white/70 backdrop-blur rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-gradient-to-r from-[#0B1628] to-[#1E293B]">
-          <h2 className="text-white" style={{ fontWeight: 700 }}>{dept ? "Edit Department" : "Add Department"}</h2>
-          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-neutral-300 hover:bg-white/20 transition-colors"><X className="w-4 h-4" /></button>
+        className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border border-black/10">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-black/10 bg-white/80 backdrop-blur border-b border-black/10">
+          <h2 className="text-black" style={{ fontWeight: 700 }}>{dept ? "Edit Department" : "Add Department"}</h2>
+          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors"><X className="w-4 h-4" /></button>
         </div>
 
         <div className="p-6 space-y-4">
